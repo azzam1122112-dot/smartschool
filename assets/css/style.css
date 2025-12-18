@@ -313,7 +313,7 @@ input::placeholder,textarea::placeholder{color:rgba(71,85,105,.70)}
 }
 .switchPanels{display:block}
 .switchPanel{margin-top:10px}
-
+    
 /* Desktop */
 @media (min-width: 900px){
   .links{display:flex}

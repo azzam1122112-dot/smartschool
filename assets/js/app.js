@@ -226,7 +226,7 @@
     setGroupActive("outcomes", "outcomes-reports");
     setGroupActive("how", "how-reports");
   }
-
+    
   function initGalleries() {
     const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
