@@ -227,11 +227,179 @@
     setGroupActive("how", "how-reports");
   }
 
+  function initGalleries() {
+    const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+
+    function getSlides(viewport) {
+      return Array.from(viewport.querySelectorAll("img"));
+    }
+
+    function scrollToSlide(viewport, slide, behavior) {
+      if (!slide) return;
+      const left = slide.offsetLeft;
+      viewport.scrollTo({ left, behavior });
+    }
+
+    $$('[data-gallery]').forEach((gallery) => {
+      const viewport = gallery.querySelector('.galleryViewport');
+      const dotsEl = gallery.querySelector('[data-dots]');
+      const prevBtn = gallery.querySelector('[data-prev]');
+      const nextBtn = gallery.querySelector('[data-next]');
+      if (!viewport || !dotsEl) return;
+
+      const slides = getSlides(viewport);
+      if (!slides.length) return;
+
+      // Build dots
+      dotsEl.innerHTML = "";
+      const dots = slides.map((_, idx) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "gDot";
+        b.setAttribute("aria-label", `انتقل للصورة ${idx + 1}`);
+        b.addEventListener("click", () => {
+          const behavior = prefersReducedMotion ? "auto" : "smooth";
+          scrollToSlide(viewport, slides[idx], behavior);
+        });
+        dotsEl.appendChild(b);
+        return b;
+      });
+
+      let activeIndex = 0;
+
+      function setActive(i) {
+        activeIndex = clamp(i, 0, slides.length - 1);
+        dots.forEach((d, di) => d.classList.toggle("isActive", di === activeIndex));
+        if (prevBtn) prevBtn.disabled = activeIndex <= 0;
+        if (nextBtn) nextBtn.disabled = activeIndex >= slides.length - 1;
+      }
+
+      // Track visibility to pick active slide
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            // choose the most visible slide
+            let best = { idx: activeIndex, ratio: 0 };
+            entries.forEach((e) => {
+              if (!e.isIntersecting) return;
+              const idx = slides.indexOf(e.target);
+              if (idx >= 0 && e.intersectionRatio >= best.ratio) {
+                best = { idx, ratio: e.intersectionRatio };
+              }
+            });
+            setActive(best.idx);
+          },
+          { root: viewport, threshold: [0.55, 0.7, 0.85] }
+        );
+        slides.forEach((s) => io.observe(s));
+      } else {
+        // Fallback: update on scroll (best-effort)
+        viewport.addEventListener(
+          "scroll",
+          () => {
+            const left = viewport.scrollLeft;
+            let bestIdx = 0;
+            let bestDist = Infinity;
+            slides.forEach((s, idx) => {
+              const dist = Math.abs(s.offsetLeft - left);
+              if (dist < bestDist) {
+                bestDist = dist;
+                bestIdx = idx;
+              }
+            });
+            setActive(bestIdx);
+          },
+          { passive: true }
+        );
+      }
+
+      // Buttons
+      if (prevBtn) {
+        prevBtn.addEventListener("click", () => {
+          const behavior = prefersReducedMotion ? "auto" : "smooth";
+          scrollToSlide(viewport, slides[activeIndex - 1], behavior);
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener("click", () => {
+          const behavior = prefersReducedMotion ? "auto" : "smooth";
+          scrollToSlide(viewport, slides[activeIndex + 1], behavior);
+        });
+      }
+
+      // Wheel: map vertical wheel to horizontal scroll (Windows mouse friendly)
+      viewport.addEventListener(
+        "wheel",
+        (e) => {
+          if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+          viewport.scrollLeft += e.deltaY;
+          e.preventDefault();
+        },
+        { passive: false }
+      );
+
+      // Drag to scroll (mouse/touch)
+      let isDown = false;
+      let startX = 0;
+      let startLeft = 0;
+
+      viewport.addEventListener("pointerdown", (e) => {
+        isDown = true;
+        viewport.setPointerCapture(e.pointerId);
+        startX = e.clientX;
+        startLeft = viewport.scrollLeft;
+      });
+
+      viewport.addEventListener("pointermove", (e) => {
+        if (!isDown) return;
+        const dx = e.clientX - startX;
+        viewport.scrollLeft = startLeft - dx;
+      });
+
+      function endDrag(e) {
+        if (!isDown) return;
+        isDown = false;
+        try { viewport.releasePointerCapture(e.pointerId); } catch (_) {}
+        // Snap to closest slide
+        const left = viewport.scrollLeft;
+        let bestIdx = 0;
+        let bestDist = Infinity;
+        slides.forEach((s, idx) => {
+          const dist = Math.abs(s.offsetLeft - left);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestIdx = idx;
+          }
+        });
+        const behavior = prefersReducedMotion ? "auto" : "smooth";
+        scrollToSlide(viewport, slides[bestIdx], behavior);
+      }
+
+      viewport.addEventListener("pointerup", endDrag);
+      viewport.addEventListener("pointercancel", endDrag);
+
+      // Keyboard support
+      viewport.addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+        e.preventDefault();
+        const dir = e.key === "ArrowRight" ? 1 : -1;
+        const behavior = prefersReducedMotion ? "auto" : "smooth";
+        scrollToSlide(viewport, slides[activeIndex + dir], behavior);
+      });
+
+      // Initial state
+      setActive(0);
+    });
+  }
+
   function init() {
     setWhatsAppLinks();
     initMenu();
     initAnchors();
     initSwitches();
+    initGalleries();
 
     const leadForm = document.getElementById("leadForm");
     if (leadForm) leadForm.addEventListener("submit", handleLeadSubmit);

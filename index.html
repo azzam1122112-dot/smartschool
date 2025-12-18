@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0B1220">
-  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#F8FAFC">
+  <meta name="color-scheme" content="light">
   <title>أنظمة المدارس الذكية | منصة التقارير والتذاكر + شاشة العرض الذكية</title>
   <meta name="description" content="حلّان متكاملان للمدارس العربية: منصة توثيق للتقارير والتذاكر (مرفقات صور فقط) + شاشة عرض ذكية للمدارس مناسبة TV/4K بواجهة عربية RTL.">
 
@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./assets/css/style.css?v=2">
+  <link rel="stylesheet" href="./assets/css/style.css?v=8">
   <script>
     // ضع رقمك لتفعيل زر واتساب (اتركه فارغًا ليختفي الزر تلقائيًا)
     window.SMART_SCHOOLS = {
@@ -119,36 +119,10 @@
           </div>
         </div>
 
-        <!-- Visual (بدون صور خارجية) -->
-        <div class="heroVisual glass" aria-label="معاينة">
-          <div class="visualTop">
-            <div class="pill">معاينة (تمثيلية)</div>
-            <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
-          </div>
-
-          <div class="visualBody">
-            <div class="mockCard">
-              <div class="mockTitle">شاشة العرض الذكية</div>
-              <div class="mockLine"></div>
-              <div class="mockGrid">
-                <div class="mockMini"></div><div class="mockMini"></div>
-                <div class="mockMini"></div><div class="mockMini"></div>
-              </div>
-            </div>
-
-            <div class="mockCard">
-              <div class="mockTitle">منصة التقارير والتذاكر</div>
-              <div class="mockLine"></div>
-              <div class="mockRows">
-                <div class="row"><span></span><span></span></div>
-                <div class="row"><span></span><span></span></div>
-                <div class="row"><span></span><span></span></div>
-              </div>
-            </div>
-
-            <div class="visualHint muted">
-              سيتم إضافة الصور و الفيديوهات قـــريباً”.
-            </div>
+        <!-- Visual (تسويقي) -->
+        <div class="heroVisual" aria-label="معاينة">
+          <div class="heroMedia">
+            <img src="./assets/imge/display/11.png" alt="معاينة شاشة العرض الذكية" loading="lazy" draggable="false">
           </div>
         </div>
       </div>
@@ -224,6 +198,73 @@
 
             <div class="cardNote muted">
              </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots -->
+    <section id="screens" class="section screens">
+      <div class="container">
+        <div class="sectionHead">
+          <div>
+            <div class="eyebrow">لقطات</div>
+            <h2>معرض صور واضح لكل نظام</h2>
+            <p class="muted">تصفح الصور يدويًا: أسهم + نقاط + سحب بالماوس/اللمس.</p>
+          </div>
+        </div>
+
+        <div class="screensGrid">
+          <article class="screenCard glass">
+            <div class="screenTitle">شاشة العرض الذكية</div>
+            <p class="muted">واجهة مناسبة للشاشات الكبيرة داخل المدرسة (TV/4K) وتعرض معلومات اليوم بوضوح.</p>
+
+            <div class="gallery" data-gallery>
+              <div class="galleryHead">
+                <div class="galleryBtns" aria-label="أزرار التمرير">
+                  <button class="gBtn" type="button" data-prev aria-label="السابق">‹</button>
+                  <button class="gBtn" type="button" data-next aria-label="التالي">›</button>
+                </div>
+              </div>
+
+              <div class="galleryViewport" dir="ltr" tabindex="0" aria-label="معرض شاشة العرض الذكية">
+                <div class="galleryTrack">
+                  <img src="./assets/imge/display/11.png" alt="شاشة العرض 1" loading="lazy" draggable="false">
+                  <img src="./assets/imge/display/12.png" alt="شاشة العرض 2" loading="lazy" draggable="false">
+                  <img src="./assets/imge/display/13.png" alt="شاشة العرض 3" loading="lazy" draggable="false">
+                  <img src="./assets/imge/display/14.png" alt="شاشة العرض 4" loading="lazy" draggable="false">
+                </div>
+              </div>
+
+              <div class="galleryDots" data-dots aria-label="نقاط التمرير"></div>
+            </div>
+          </article>
+
+          <article class="screenCard glass">
+            <div class="screenTitle">منصة التقارير والتذاكر</div>
+            <p class="muted">توثيق تقارير المدرسة وإدارة التذاكر/الطلبات مع مرفقات صور فقط.</p>
+
+            <div class="gallery" data-gallery>
+              <div class="galleryHead">
+                <div class="galleryBtns" aria-label="أزرار التمرير">
+                  <button class="gBtn" type="button" data-prev aria-label="السابق">‹</button>
+                  <button class="gBtn" type="button" data-next aria-label="التالي">›</button>
+                </div>
+              </div>
+
+              <div class="galleryViewport" dir="ltr" tabindex="0" aria-label="معرض منصة التقارير والتذاكر">
+                <div class="galleryTrack">
+                  <img src="./assets/imge/reports/01.png" alt="تقرير 1" loading="lazy" draggable="false">
+                  <img src="./assets/imge/reports/02.png" alt="تقرير 2" loading="lazy" draggable="false">
+                  <img src="./assets/imge/reports/03.png" alt="تقرير 3" loading="lazy" draggable="false">
+                  <img src="./assets/imge/reports/04.png" alt="تقرير 4" loading="lazy" draggable="false">
+                  <img src="./assets/imge/reports/05.png" alt="تقرير 5" loading="lazy" draggable="false">
+                  <img src="./assets/imge/reports/06.png" alt="تقرير 6" loading="lazy" draggable="false">
+                </div>
+              </div>
+
+              <div class="galleryDots" data-dots aria-label="نقاط التمرير"></div>
+            </div>
           </article>
         </div>
       </div>
