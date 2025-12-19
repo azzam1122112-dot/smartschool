@@ -6,24 +6,82 @@
   <meta name="theme-color" content="#F8FAFC">
   <meta name="color-scheme" content="light">
   <title>أنظمة المدارس الذكية | منصة التقارير والتذاكر + شاشة العرض الذكية</title>
-  <meta name="description" content="حلّان متكاملان للمدارس العربية: منصة توثيق للتقارير والتذاكر (مرفقات صور فقط) + شاشة عرض ذكية للمدارس مناسبة TV/4K بواجهة عربية RTL.">
+  <meta name="description" content="حلّان مستقلان للمدارس العربية: منصة التقارير والتذاكر (مرفقات صور فقط) + شاشة عرض ذكية مناسبة TV/4K بواجهة عربية RTL.">
 
-  <!-- (اختياري) خط عربي ممتاز — احذفه إذا تبي الصفحة بدون أي CDNs -->
+  <!-- (اختياري) خط عربي — احذفه إذا تبي الصفحة بدون أي CDNs -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./assets/css/style.css?v=8">
+  <link rel="stylesheet" href="./assets/css/style.css?v=9">
+
   <script>
-    // ضع رقمك لتفعيل زر واتساب (اتركه فارغًا ليختفي الزر تلقائيًا)
+    // تم ضبط رقمك لتفعيل زر واتساب
     window.SMART_SCHOOLS = {
       brand: "أنظمة المدارس الذكية",
-      whatsappNumber: "", // مثال: "9665XXXXXXXX"
-      whatsappPrefill: "السلام عليكم، أرغب بعرض سعر/تجربة لأنظمة المدارس الذكية."
+      whatsappNumber: "966537720207",
+      whatsappPrefill: "السلام عليكم، أرغب بتجربة/عرض سعر لأنظمة المدارس الذكية."
     };
   </script>
+
+  <!-- تحسين بسيط لدعم الجداول/البطاقات + بطاقة المطور -->
+  <style>
+    /* خفيف جدًا — لا يغير هويتك */
+    .tableWrap{overflow:auto;border-radius:16px}
+    table.prTable{width:100%;border-collapse:separate;border-spacing:0;min-width:760px}
+    table.prTable th, table.prTable td{padding:14px 14px;border-bottom:1px solid rgba(148,163,184,.25);vertical-align:top;text-align:right}
+    table.prTable th{font-weight:800}
+    table.prTable tr:last-child td{border-bottom:0}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:700;font-size:.9rem}
+    .pill.ok{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25)}
+    .pill.no{background:rgba(239,68,68,.10);border:1px solid rgba(239,68,68,.25)}
+    .mutedSm{opacity:.8;font-size:.92rem}
+    .kpiRow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media (max-width: 900px){ .kpiRow{grid-template-columns:1fr} table.prTable{min-width:680px} }
+    .priceCards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media (max-width: 980px){ .priceCards{grid-template-columns:1fr} }
+    .priceCard .priceTop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .priceCard .price{font-size:28px;font-weight:900;line-height:1}
+    .priceCard .per{font-weight:700;opacity:.75}
+    .priceCard .save{font-weight:800;opacity:.85}
+    .divider{height:1px;background:rgba(148,163,184,.25);margin:14px 0}
+
+    /* ===== Developer Section (احترافي/متناسق مع glass) ===== */
+    .devGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:stretch}
+    @media (max-width: 980px){ .devGrid{grid-template-columns:1fr} }
+
+    .devCard{padding:18px;border-radius:18px}
+    .devHead{display:flex;gap:14px;align-items:center}
+    .devAvatar{
+      width:56px;height:56px;border-radius:16px;
+      display:grid;place-items:center;
+      font-weight:900;font-size:18px;
+      background:rgba(37,99,235,.12);
+      border:1px solid rgba(37,99,235,.22);
+      flex:0 0 auto;
+    }
+    .devName{font-weight:900;font-size:18px;line-height:1.2}
+    .devNameEn{opacity:.8;font-size:13px;letter-spacing:.3px;margin-top:2px}
+    .devRole{margin-top:10px}
+    .devRole .ar{font-weight:800}
+    .devRole .en{opacity:.85;font-size:13px;margin-top:3px}
+    .devLinks{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .devLinks a{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 12px;border-radius:14px;
+      text-decoration:none;
+      border:1px solid rgba(148,163,184,.25);
+      background:rgba(15,23,42,.03);
+      font-weight:800;
+    }
+    .devLinks a:hover{transform:translateY(-1px)}
+    .devMini{padding:16px;border-radius:18px}
+    .devMini h4{margin:0 0 8px;font-size:16px}
+    .devList{margin:0;padding:0 18px}
+    .devList li{margin:6px 0}
+  </style>
 </head>
-    
+
 <body>
   <a class="skip" href="#main">تخطي إلى المحتوى</a>
 
@@ -35,16 +93,18 @@
           <span class="logo" aria-hidden="true">S</span>
           <span class="brandText">
             <span class="brandName">أنظمة المدارس الذكية</span>
-            <span class="brandSub">حلّان متكاملان للمدارس العربية</span>
+            <span class="brandSub">نظامان مستقلان — اختر ما يناسب مدرستك</span>
           </span>
         </a>
 
         <nav class="links" aria-label="التنقل">
           <a href="#systems">الأنظمة</a>
-          <a href="#outcomes">النتائج</a>
-          <a href="#how">طريقة العمل</a>
+          <a href="#reports-details">التقارير والتذاكر</a>
+          <a href="#display-details">شاشة العرض</a>
+          <a href="#pricing">الأسعار</a>
           <a href="#faq">الأسئلة</a>
           <a href="#contact">تواصل</a>
+          <a href="#developer">عن المطور</a>
         </nav>
 
         <div class="actions">
@@ -66,10 +126,12 @@
       <!-- Mobile Menu -->
       <div id="mobileMenu" class="mobileMenu glass" data-menu hidden>
         <a href="#systems">الأنظمة</a>
-        <a href="#outcomes">النتائج</a>
-        <a href="#how">طريقة العمل</a>
+        <a href="#reports-details">التقارير والتذاكر</a>
+        <a href="#display-details">شاشة العرض</a>
+        <a href="#pricing">الأسعار</a>
         <a href="#faq">الأسئلة</a>
         <a href="#contact">تواصل</a>
+        <a href="#developer">عن المطور</a>
         <a class="btn primary menuCta" href="#contact">اطلب عرض سعر ←</a>
       </div>
     </div>
@@ -82,31 +144,32 @@
         <div class="heroCopy">
           <div class="badges">
             <span class="badge">واجهة عربية RTL</span>
-            <span class="badge accent">جاهز للمدارس</span>
+            <span class="badge accent">جاهز للإطلاق</span>
             <span class="badge neutral">مناسب TV/4K</span>
           </div>
 
           <h1 class="headline">
-            نظّم التوثيق والتشغيل اليومي في مدرستك
-            <span class="hl">بوضوح</span> و<span class="hl2">بسلاسة</span>
+            نقلة عملية في إدارة المدرسة
+            <span class="hl">بالتوثيق</span> و<span class="hl2">العرض اليومي</span>
           </h1>
 
           <p class="subhead">
-            نقدم حلّين عمليين يغطيان أهم احتياجات المدارس:
-            <b>منصة توثيق للتقارير والتذاكر</b> (مرفقات صور فقط)، و<b>شاشة عرض ذكية</b> داخل المدرسة
-            تعرض معلومات اليوم بشكل واضح على الشاشات.
+            اختر ما تحتاجه:
+            <b>منصة التقارير والتذاكر</b> لتنظيم التوثيق والمتابعة داخل المدرسة (مرفقات <b>صور فقط</b>)،
+            أو <b>شاشة العرض الذكية</b> لعرض معلومات اليوم على شاشات المدرسة بشكل واضح.
+            ويمكن الاشتراك في أي نظام منفردًا أو الاثنين معًا.
           </p>
 
           <div class="ctaRow">
             <a class="btn primary" href="#systems">استعرض الأنظمة ←</a>
-            <a class="btn ghost" href="#contact">اطلب عرض سعر</a>
+            <a class="btn ghost" href="#pricing">الأسعار</a>
             <a class="btn link" href="#faq">هل لديك أسئلة؟</a>
           </div>
 
           <div class="trustRow" role="list" aria-label="مؤشرات">
             <div class="trust" role="listitem">
               <div class="tTitle">تشغيل سريع</div>
-              <div class="tValue">إعداد واضح</div>
+              <div class="tValue">خلال دقائق</div>
             </div>
             <div class="trust" role="listitem">
               <div class="tTitle">المرفقات</div>
@@ -119,7 +182,6 @@
           </div>
         </div>
 
-        <!-- Visual (تسويقي) -->
         <div class="heroVisual" aria-label="معاينة">
           <div class="heroMedia">
             <img src="./assets/imge/display/11.png" alt="معاينة شاشة العرض الذكية" loading="lazy" draggable="false">
@@ -134,11 +196,11 @@
         <div class="sectionHead">
           <div>
             <div class="eyebrow">الأنظمة</div>
-            <h2>نظامان مستقلان… </h2>
-            <p class="muted">هوية محايدة تناسب  جميع المدارس .</p>
+            <h2>نظامان مستقلان… اختر ما يناسب مدرستك</h2>
+            <p class="muted">بدون دمج قسري — كل نظام يعمل وحده بكفاءة، ويمكن الجمع بينهما عند الحاجة.</p>
           </div>
           <div class="sectionActions">
-            <a class="btn ghost" href="#how">طريقة العمل</a>
+            <a class="btn ghost" href="#pricing">الأسعار</a>
             <a class="btn primary" href="#contact">تواصل الآن ←</a>
           </div>
         </div>
@@ -147,28 +209,25 @@
           <!-- Reports -->
           <article class="card glass">
             <div class="cardTop">
-              <div class="cardTitle">منصة توثيق للتقارير والتذاكر</div>
+              <div class="cardTitle">منصة التقارير والتذاكر</div>
               <span class="tag">Reports</span>
             </div>
 
             <p class="muted">
-              منصة مخصصة لتوثيق تقارير المدرسة وإدارة التذاكر/الطلبات بإسناد وحالات واضحة.
-              <b>المرفقات: صور فقط</b> لتبسيط الاستخدام وتسريع التوثيق داخل المدرسة.
+              نظام لتوثيق التقارير المدرسية وإدارة التذاكر/الطلبات بحالات واضحة وإسناد ومسار متابعة.
+              <b>المرفقات: صور فقط</b> لتسريع التوثيق وتقليل التعقيد داخل المدرسة.
             </p>
 
             <ul class="bullets">
-              <li>تقارير منظمة بالصور</li>
-              <li>تذاكر/طلبات بحالات وإسناد</li>
+              <li>تقارير يومية/أسبوعية منظمة بالصور</li>
+              <li>تذاكر/طلبات بحالات وإسناد وتعليقات</li>
               <li>صلاحيات دقيقة حسب الدور</li>
-              <li>طباعة PDF وأرشفة</li>
+              <li>طباعة PDF وأرشفة منظمة</li>
             </ul>
 
             <div class="cardCtas">
-              <a class="btn primary" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">فتح المنصة ←</a>
-              <a class="btn ghost" href="#contact">اطلب عرض سعر</a>
-            </div>
-
-            <div class="cardNote muted">
+              <a class="btn primary" href="#reports-details">تفاصيل النظام ←</a>
+              <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">فتح المنصة</a>
             </div>
           </article>
 
@@ -180,25 +239,238 @@
             </div>
 
             <p class="muted">
-              لوحة عرض مخصصة للشاشات داخل المدرسة تعرض معلومات اليوم بشكل جذاب وواضح،
-              ومناسبة للاستخدام على <b>TV/4K</b>.
+              لوحة عرض مخصصة للشاشات داخل المدرسة تعرض معلومات اليوم (التنبيهات، الوقت، الجدول…)
+              بواجهة كبيرة وواضحة مناسبة <b>TV/4K</b>.
             </p>
 
             <ul class="bullets">
-              <li>عرض معلومات اليوم والتنبيهات</li>
-              <li>متوافقة مع الشاشات الكبيرة</li>
+              <li>عرض معلومات اليوم والتنبيهات بشكل واضح</li>
+              <li>واجهة كبيرة مناسبة للشاشات</li>
               <li>واجهة عربية RTL</li>
               <li>تحديث تلقائي حسب إعدادات المدرسة</li>
             </ul>
 
             <div class="cardCtas">
-              <a class="btn primary" href="https://school-display.com/" target="_blank" rel="noopener">فتح النظام ←</a>
-              <a class="btn ghost" href="#contact">اطلب عرض سعر</a>
+              <a class="btn primary" href="#display-details">تفاصيل النظام ←</a>
+              <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">فتح النظام</a>
             </div>
-
-            <div class="cardNote muted">
-             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reports Details -->
+    <section id="reports-details" class="section">
+      <div class="container">
+        <div class="sectionHead">
+          <div>
+            <div class="eyebrow">تفاصيل النظام</div>
+            <h2>منصة التقارير والتذاكر — كيف تعمل داخل المدرسة؟</h2>
+            <p class="muted">بديل عملي للملفات المتناثرة والواتساب: توثيق + متابعة + أرشفة داخل نظام واحد.</p>
+          </div>
+          <div class="sectionActions">
+            <a class="btn ghost" href="#pricing-reports">أسعار النظام</a>
+            <a class="btn primary" href="#contact">اطلب تجربة ←</a>
+          </div>
+        </div>
+
+        <div class="kpiRow">
+          <div class="glass mini">
+            <div class="miniTitle">هدف النظام</div>
+            <p class="muted">توحيد التقارير والطلبات بسجل واحد واضح قابل للبحث والطباعة.</p>
+          </div>
+          <div class="glass mini">
+            <div class="miniTitle">المرفقات</div>
+            <p class="muted">صور فقط لتبسيط الاستخدام وتسريع الرفع داخل المدرسة.</p>
+          </div>
+          <div class="glass mini">
+            <div class="miniTitle">المخرجات</div>
+            <p class="muted">PDF للطباعة + أرشفة مرتبة + متابعة دقيقة لكل تذكرة.</p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid3">
+          <div class="glass step">
+            <div class="stepNo">1</div>
+            <div class="stepTitle">تهيئة المدرسة</div>
+            <p class="muted">إضافة الأقسام، تحديد الأدوار والصلاحيات، إنشاء حسابات المستخدمين.</p>
+          </div>
+          <div class="glass step">
+            <div class="stepNo">2</div>
+            <div class="stepTitle">التوثيق والمتابعة</div>
+            <p class="muted">المعلم يرفع تقريره بالصور، والطلبات تُفتح كتذاكر بحالة ومسؤول وملاحظات.</p>
+          </div>
+          <div class="glass step">
+            <div class="stepNo">3</div>
+            <div class="stepTitle">الأرشفة والطباعة</div>
+            <p class="muted">إغلاق التذاكر بعد التنفيذ، وطباعة تقارير محددة أو كاملة بصيغة PDF.</p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="sectionHead">
+          <div>
+            <div class="eyebrow">مقارنة</div>
+            <h3>الطريقة التقليدية vs النظام الجديد</h3>
+            <p class="muted">مقارنة مباشرة تساعد الإدارة على اتخاذ القرار.</p>
+          </div>
+        </div>
+
+        <div class="tableWrap glass">
+          <table class="prTable" aria-label="مقارنة منصة التقارير والتذاكر">
+            <thead>
+              <tr>
+                <th>المحور</th>
+                <th>الطريقة التقليدية</th>
+                <th>منصة التقارير والتذاكر</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>التوثيق</b></td>
+                <td>ملفات وورد/صور في الجوال + مجلدات مبعثرة</td>
+                <td>تقارير منظمة داخل النظام + مرفقات صور فقط + بحث سريع</td>
+              </tr>
+              <tr>
+                <td><b>الطلبات</b></td>
+                <td>واتساب/مذكرات/اتصالات بدون تتبع واضح</td>
+                <td>تذاكر بحالات وإسناد ومسار متابعة وسجل إجراءات</td>
+              </tr>
+              <tr>
+                <td><b>المساءلة</b></td>
+                <td>صعب تعرف “مين مسؤول” و”إيش صار”</td>
+                <td>مسؤول محدد + تاريخ + ملاحظات + حالة واضحة</td>
+              </tr>
+              <tr>
+                <td><b>الطباعة</b></td>
+                <td>تجميع يدوي مرهق</td>
+                <td>تصدير وطباعة PDF بشكل مرتب</td>
+              </tr>
+              <tr>
+                <td><b>الوقت</b></td>
+                <td>ضياع وقت في التجميع والمتابعة</td>
+                <td>توفير وقت واضح + إجراءات موحدة</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="sectionActions">
+          <a class="btn primary" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">فتح منصة التقارير والتذاكر ←</a>
+          <a class="btn ghost" href="#pricing-reports">شاهد الأسعار</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Display Details -->
+    <section id="display-details" class="section">
+      <div class="container">
+        <div class="sectionHead">
+          <div>
+            <div class="eyebrow">تفاصيل النظام</div>
+            <h2>شاشة العرض الذكية — كيف تعمل داخل المدرسة؟</h2>
+            <p class="muted">بديل واضح للوحات الورقية: شاشة واحدة تعرض معلومات اليوم بشكل ثابت وجذاب.</p>
+          </div>
+          <div class="sectionActions">
+            <a class="btn ghost" href="#pricing-display">أسعار النظام</a>
+            <a class="btn primary" href="#contact">اطلب تجربة ←</a>
+          </div>
+        </div>
+
+        <div class="kpiRow">
+          <div class="glass mini">
+            <div class="miniTitle">هدف النظام</div>
+            <p class="muted">عرض معلومات اليوم للطلاب/المعلمين بشكل واضح داخل المدرسة.</p>
+          </div>
+          <div class="glass mini">
+            <div class="miniTitle">المكان المناسب</div>
+            <p class="muted">الإدارة، الممرات، بهو المدرسة — شاشة TV أو 4K.</p>
+          </div>
+          <div class="glass mini">
+            <div class="miniTitle">التحديث</div>
+            <p class="muted">تحديث تلقائي حسب إعدادات المدرسة (مثال: كل 20–25 ثانية).</p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid3">
+          <div class="glass step">
+            <div class="stepNo">1</div>
+            <div class="stepTitle">إنشاء شاشة</div>
+            <p class="muted">من لوحة التحكم يتم إنشاء شاشة وربطها بمدرستك عبر رابط/رمز بسيط.</p>
+          </div>
+          <div class="glass step">
+            <div class="stepNo">2</div>
+            <div class="stepTitle">ضبط العرض</div>
+            <p class="muted">تحديد العناصر المعروضة (تنبيهات، جدول، وقت/تاريخ…) ونمط الواجهة.</p>
+          </div>
+          <div class="glass step">
+            <div class="stepNo">3</div>
+            <div class="stepTitle">تشغيل مستمر</div>
+            <p class="muted">فتح الشاشة على TV متصل بالإنترنت وتشغيل العرض اليومي بشكل ثابت.</p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="sectionHead">
+          <div>
+            <div class="eyebrow">مقارنة</div>
+            <h3>الطريقة التقليدية vs النظام الجديد</h3>
+            <p class="muted">ماذا تكسب المدرسة عند تحويل لوحة المعلومات إلى شاشة ذكية؟</p>
+          </div>
+        </div>
+
+        <div class="tableWrap glass">
+          <table class="prTable" aria-label="مقارنة شاشة العرض الذكية">
+            <thead>
+              <tr>
+                <th>المحور</th>
+                <th>الطريقة التقليدية</th>
+                <th>شاشة العرض الذكية</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>التنبيهات</b></td>
+                <td>لوحات ورقية تحتاج تحديث يدوي وقد تُنسى</td>
+                <td>تنبيهات تظهر تلقائيًا وبشكل واضح على الشاشة</td>
+              </tr>
+              <tr>
+                <td><b>جدول اليوم</b></td>
+                <td>غير موحد أو غير محدث</td>
+                <td>عرض واضح للجدول اليومي/الحصص/الانتظار حسب إعدادات المدرسة</td>
+              </tr>
+              <tr>
+                <td><b>وضوح القراءة</b></td>
+                <td>محدود خصوصًا في الممرات</td>
+                <td>واجهة كبيرة مناسبة TV/4K مع تباين وخطوط واضحة</td>
+              </tr>
+              <tr>
+                <td><b>الجهد اليومي</b></td>
+                <td>تجهيز/طباعة/تعليق</td>
+                <td>تشغيل مستمر وتحديث تلقائي دون عمل يومي متكرر</td>
+              </tr>
+              <tr>
+                <td><b>الانطباع</b></td>
+                <td>شكل تقليدي</td>
+                <td>واجهة احترافية تعكس صورة المدرسة وتنظيمها</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="sectionActions">
+          <a class="btn primary" href="https://school-display.com/" target="_blank" rel="noopener">فتح شاشة العرض الذكية ←</a>
+          <a class="btn ghost" href="#pricing-display">شاهد الأسعار</a>
         </div>
       </div>
     </section>
@@ -270,139 +542,227 @@
       </div>
     </section>
 
-    <!-- Outcomes (NOT merged) -->
-    <section id="outcomes" class="section">
+    <!-- Pricing -->
+    <section id="pricing" class="section">
       <div class="container">
         <div class="sectionHead">
           <div>
-            <div class="eyebrow">النتائج</div>
-            <h2>نتائج عملية لكل نظام… بشكل مستقل</h2>
-            <p class="muted">بدون دمج — اختر النظام لعرض نتائجه المتوقعة داخل المدرسة.</p>
+            <div class="eyebrow">الأسعار</div>
+            <h2>أسعار واضحة — كل نظام منفصل</h2>
+            <p class="muted">اختر نظامًا واحدًا أو اطلب عرضًا خاصًا للاشتراك في النظامين معًا.</p>
+          </div>
+          <div class="sectionActions">
+            <a class="btn primary" href="#contact">اطلب عرض سعر ←</a>
           </div>
         </div>
 
-        <div class="segmented glass" role="tablist" aria-label="تبديل النتائج حسب النظام">
-          <button class="segBtn isActive" type="button" role="tab" aria-selected="true"
-                  data-switch="outcomes" data-target="outcomes-reports">
-            منصة التقارير والتذاكر
-          </button>
-          <button class="segBtn" type="button" role="tab" aria-selected="false"
-                  data-switch="outcomes" data-target="outcomes-display">
-            شاشة العرض الذكية
-          </button>
-        </div>
-
-        <div class="switchPanels">
-          <div id="outcomes-reports" class="switchPanel isActive" role="tabpanel" tabindex="0">
-            <div class="grid3">
-              <div class="glass mini">
-                <div class="miniTitle">توثيق أسرع بالصور</div>
-                <p class="muted">رفع صور التقرير وتوثيقه بشكل منظم مع أرشفة واضحة.</p>
-              </div>
-
-              <div class="glass mini">
-                <div class="miniTitle">طلبات واضحة ومسندة</div>
-                <p class="muted">كل طلب (تذكرة) له حالة ومسؤول وملاحظات وسجل متابعة.</p>
-              </div>
-
-              <div class="glass mini">
-                <div class="miniTitle">تقليل العشوائية</div>
-                <p class="muted">توحيد أسلوب التوثيق والمتابعة بدل الملفات المتناثرة.</p>
-              </div>
+        <!-- Reports Pricing -->
+        <div id="pricing-reports" class="glass" style="padding:16px;border-radius:18px">
+          <div class="sectionHead" style="margin:0 0 10px">
+            <div>
+              <div class="eyebrow">منصة التقارير والتذاكر</div>
+              <h3 style="margin:6px 0 0">باقات الاشتراك</h3>
+              <p class="muted">تشمل التقارير + التذاكر + الصلاحيات + الطباعة PDF. (المرفقات: صور فقط)</p>
             </div>
           </div>
 
-          <div id="outcomes-display" class="switchPanel" role="tabpanel" tabindex="0" hidden>
-            <div class="grid3">
-              <div class="glass mini">
-                <div class="miniTitle">عرض داخل المدرسة</div>
-                <p class="muted">معلومات اليوم على شاشة واحدة واضحة بدل اللوحات الورقية.</p>
+          <div class="priceCards">
+            <article class="glass priceCard" style="padding:16px">
+              <div class="priceTop">
+                <div>
+                  <div class="miniTitle">الأساس</div>
+                  <div class="mutedSm">حتى 30 معلم</div>
+                </div>
+                <div>
+                  <div class="price">69 <span class="per">ريال/شهر</span></div>
+                  <div class="save mutedSm">690 ريال/سنة</div>
+                </div>
               </div>
+              <div class="divider"></div>
+              <ul class="bullets">
+                <li>تقارير منظمة بالصور</li>
+                <li>تذاكر بحالات وإسناد</li>
+                <li>صلاحيات حسب الدور</li>
+                <li>تصدير/طباعة PDF</li>
+              </ul>
+              <div class="cardCtas">
+                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">زيارة النظام</a>
+              </div>
+            </article>
 
-              <div class="glass mini">
-                <div class="miniTitle">تجربة مناسبة للشاشات</div>
-                <p class="muted">واجهة كبيرة وواضحة مناسبة TV/4K للاستخدام داخل الممرات/الإدارة.</p>
+            <article class="glass priceCard" style="padding:16px">
+              <div class="priceTop">
+                <div>
+                  <div class="miniTitle">المتقدمة ⭐</div>
+                  <div class="mutedSm">حتى 60 معلم</div>
+                </div>
+                <div>
+                  <div class="price">99 <span class="per">ريال/شهر</span></div>
+                  <div class="save mutedSm">990 ريال/سنة</div>
+                </div>
               </div>
+              <div class="divider"></div>
+              <ul class="bullets">
+                <li>كل مزايا الأساس</li>
+                <li>تقارير أكثر وتنظيم أعلى</li>
+                <li>أفضل خيار لمعظم المدارس</li>
+                <li>دعم محسّن</li>
+              </ul>
+              <div class="cardCtas">
+                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">زيارة النظام</a>
+              </div>
+            </article>
 
-              <div class="glass mini">
-                <div class="miniTitle">تحديث تلقائي</div>
-                <p class="muted">تحديث المعلومات حسب إعدادات المدرسة دون تدخل يدوي متكرر.</p>
+            <article class="glass priceCard" style="padding:16px">
+              <div class="priceTop">
+                <div>
+                  <div class="miniTitle">المفتوحة</div>
+                  <div class="mutedSm">معلّمون غير محدود</div>
+                </div>
+                <div>
+                  <div class="price">129 <span class="per">ريال/شهر</span></div>
+                  <div class="save mutedSm">1290 ريال/سنة</div>
+                </div>
               </div>
+              <div class="divider"></div>
+              <ul class="bullets">
+                <li>كل مزايا المتقدمة</li>
+                <li>مناسبة للمدارس الكبيرة</li>
+                <li>هيكلة أدوار وصلاحيات</li>
+                <li>أولوية دعم</li>
+              </ul>
+              <div class="cardCtas">
+                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">زيارة النظام</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Display Pricing -->
+        <div id="pricing-display" class="glass" style="padding:16px;border-radius:18px">
+          <div class="sectionHead" style="margin:0 0 10px">
+            <div>
+              <div class="eyebrow">شاشة العرض الذكية</div>
+              <h3 style="margin:6px 0 0">باقات الاشتراك</h3>
+              <p class="muted">تشمل لوحة عرض للشاشات داخل المدرسة + تحديث تلقائي + دعم TV/4K.</p>
             </div>
           </div>
-        </div>
 
-      </div>
-    </section>
+          <div class="priceCards">
+            <article class="glass priceCard" style="padding:16px">
+              <div class="priceTop">
+                <div>
+                  <div class="miniTitle">شاشة واحدة</div>
+                  <div class="mutedSm">حتى 1 شاشة</div>
+                </div>
+                <div>
+                  <div class="price">59 <span class="per">ريال/شهر</span></div>
+                  <div class="save mutedSm">590 ريال/سنة</div>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <ul class="bullets">
+                <li>واجهة TV/4K واضحة</li>
+                <li>تحديث تلقائي</li>
+                <li>إعدادات عناصر العرض</li>
+                <li>هوية المدرسة (اسم/شعار)</li>
+              </ul>
+              <div class="cardCtas">
+                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">زيارة النظام</a>
+              </div>
+            </article>
 
-    <!-- How (NOT merged) -->
-    <section id="how" class="section">
-      <div class="container">
-        <div class="sectionHead">
-          <div>
-            <div class="eyebrow">طريقة العمل</div>
-            <h2>٣ خطوات بسيطة… لكل نظام على حدة</h2>
-            <p class="muted">اختر النظام لترى خطوات تطبيقه داخل المدرسة.</p>
+            <article class="glass priceCard" style="padding:16px">
+              <div class="priceTop">
+                <div>
+                  <div class="miniTitle">باقة شاشات ⭐</div>
+                  <div class="mutedSm">حتى 3 شاشات</div>
+                </div>
+                <div>
+                  <div class="price">99 <span class="per">ريال/شهر</span></div>
+                  <div class="save mutedSm">990 ريال/سنة</div>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <ul class="bullets">
+                <li>أفضل خيار لمعظم المدارس</li>
+                <li>تشغيل عدة شاشات</li>
+                <li>إدارة كل شاشة من لوحة التحكم</li>
+                <li>دعم محسّن</li>
+              </ul>
+              <div class="cardCtas">
+                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">زيارة النظام</a>
+              </div>
+            </article>
+
+            <article class="glass priceCard" style="padding:16px">
+              <div class="priceTop">
+                <div>
+                  <div class="miniTitle">باقة موسّعة</div>
+                  <div class="mutedSm">حتى 5 شاشات</div>
+                </div>
+                <div>
+                  <div class="price">139 <span class="per">ريال/شهر</span></div>
+                  <div class="save mutedSm">1390 ريال/سنة</div>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <ul class="bullets">
+                <li>للمدارس الكبيرة</li>
+                <li>مرونة أعلى في توزيع الشاشات</li>
+                <li>أولوية دعم</li>
+                <li>تشغيل مستقر للشاشات</li>
+              </ul>
+              <div class="cardCtas">
+                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">زيارة النظام</a>
+              </div>
+            </article>
           </div>
-        </div>
 
-        <div class="segmented glass" role="tablist" aria-label="تبديل طريقة العمل حسب النظام">
-          <button class="segBtn isActive" type="button" role="tab" aria-selected="true"
-                  data-switch="how" data-target="how-reports">
-            منصة التقارير والتذاكر
-          </button>
-          <button class="segBtn" type="button" role="tab" aria-selected="false"
-                  data-switch="how" data-target="how-display">
-            شاشة العرض الذكية
-          </button>
-        </div>
+          <div class="divider"></div>
 
-        <div class="switchPanels">
-          <div id="how-reports" class="switchPanel isActive" role="tabpanel" tabindex="0">
-            <div class="grid3">
-              <div class="glass step">
-                <div class="stepNo">1</div>
-                <div class="stepTitle">تهيئة المدرسة</div>
-                <p class="muted">إعداد الأقسام والمستخدمين والصلاحيات.</p>
-              </div>
-
-              <div class="glass step">
-                <div class="stepNo">2</div>
-                <div class="stepTitle">بدء التوثيق</div>
-                <p class="muted">إنشاء التقارير بالصور وفتح التذاكر حسب الحاجة.</p>
-              </div>
-
-              <div class="glass step">
-                <div class="stepNo">3</div>
-                <div class="stepTitle">متابعة وأرشفة</div>
-                <p class="muted">إغلاق الطلبات بعد المعالجة وأرشفة التقارير للرجوع لها.</p>
-              </div>
+          <div class="glass mini" style="padding:14px">
+            <div class="miniTitle">إضافة شاشات (Add-On)</div>
+            <p class="muted">إذا احتجت عددًا أكبر من الشاشات من الباقة، أضف شاشات إضافية بسعر ثابت:</p>
+            <div class="tableWrap">
+              <table class="prTable" aria-label="إضافة شاشات">
+                <thead>
+                  <tr>
+                    <th>الإضافة</th>
+                    <th>السعر الشهري</th>
+                    <th>السعر السنوي</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>شاشة إضافية</b></td>
+                    <td>25 ريال</td>
+                    <td>250 ريال</td>
+                  </tr>
+                  <tr>
+                    <td><b>شاشتان إضافيتان</b></td>
+                    <td>40 ريال</td>
+                    <td>400 ريال</td>
+                  </tr>
+                  <tr>
+                    <td><b>3 شاشات إضافية</b></td>
+                    <td>55 ريال</td>
+                    <td>550 ريال</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </div>
-
-          <div id="how-display" class="switchPanel" role="tabpanel" tabindex="0" hidden>
-            <div class="grid3">
-              <div class="glass step">
-                <div class="stepNo">1</div>
-                <div class="stepTitle">تجهيز الشاشة</div>
-                <p class="muted">فتح الرابط على TV/كمبيوتر وربطه بالإنترنت.</p>
-              </div>
-
-              <div class="glass step">
-                <div class="stepNo">2</div>
-                <div class="stepTitle">ضبط إعدادات المدرسة</div>
-                <p class="muted">تحديد نمط العرض والتحديث والعناصر التي تظهر على الشاشة.</p>
-              </div>
-
-              <div class="glass step">
-                <div class="stepNo">3</div>
-                <div class="stepTitle">تشغيل مستمر</div>
-                <p class="muted">تشغيل العرض اليومي داخل المدرسة مع تحديث تلقائي.</p>
-              </div>
-            </div>
+            <p class="mutedSm" style="margin:10px 0 0">* اترك خانة عدد الشاشات في نموذج التواصل لتصلك توصية تلقائية بالباقة المناسبة.</p>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -419,23 +779,23 @@
 
         <div class="faqGrid">
           <details class="glass faq">
-            <summary>هل المرفقات تدعم غير الصور؟</summary>
-            <p class="muted">حاليًا المرفقات صور فقط.</p>
+            <summary>هل منصة التقارير والتذاكر تدعم مرفقات غير الصور؟</summary>
+            <p class="muted">حاليًا المرفقات صور فقط لتبسيط الاستخدام داخل المدرسة وتسريع التوثيق.</p>
           </details>
 
           <details class="glass faq">
             <summary>هل شاشة العرض تعمل على TV/4K؟</summary>
-            <p class="muted">نعم، تم تصميمها لتناسب الشاشات الكبيرة مع واجهة واضحة.</p>
+            <p class="muted">نعم، تم تصميم الواجهة لتكون كبيرة وواضحة ومناسبة للشاشات الكبيرة.</p>
           </details>
 
           <details class="glass faq">
-            <summary>هل الواجهة مناسبة للمدارس العربية؟</summary>
-            <p class="muted">نعم، هوية محايدة وواجهة RTL، ويمكن تخصيص اسم المدرسة وشعارها داخل الأنظمة.</p>
+            <summary>هل يمكن الاشتراك في نظام واحد فقط؟</summary>
+            <p class="muted">نعم، كل نظام مستقل ويمكن الاشتراك فيه منفردًا. ويمكن أيضًا طلب عرض خاص للاشتراك في النظامين معًا.</p>
           </details>
 
           <details class="glass faq">
-            <summary>كيف يتم طلب التسعير؟</summary>
-            <p class="muted">التسعير يعتمد على احتياج المدرسة (النظام + عدد الشاشات). املأ النموذج وسنرسل عرضًا مناسبًا.</p>
+            <summary>كيف يتم طلب التسعير أو التجربة؟</summary>
+            <p class="muted">املأ نموذج التواصل وحدد النظام المطلوب (وعدد الشاشات إن وجد) وسنرسل عرضًا مناسبًا.</p>
           </details>
         </div>
       </div>
@@ -514,8 +874,73 @@
           </div>
 
           <div class="sideHint muted">
-           </div>
+            نصيحة: حدّد النظام المطلوب وعدد الشاشات (إن وجدت) لنقترح عليك الباقة الأنسب مباشرة.
+          </div>
         </aside>
+      </div>
+    </section>
+
+    <!-- ===== Developer (مضاف) ===== -->
+    <section id="developer" class="section">
+      <div class="container">
+        <div class="sectionHead">
+          <div>
+            <div class="eyebrow">عن المطور</div>
+            <h2>مصمم ومطور الأنظمة</h2>
+            <p class="muted">بيانات التواصل الرسمية لمصمم ومطور الأنظمة لهذه المنصات.</p>
+          </div>
+          <div class="sectionActions">
+            <a class="btn ghost" href="#contact">طلب عرض سعر</a>
+            <a class="btn primary" href="https://wa.me/966537720207" target="_blank" rel="noopener">تواصل واتساب ←</a>
+          </div>
+        </div>
+
+        <div class="devGrid">
+          <article class="glass devCard">
+            <div class="devHead">
+              <div class="devAvatar" aria-hidden="true">M</div>
+              <div>
+                <div class="devName">منصور محمد بن حامد الغامدي</div>
+                <div class="devNameEn">MANSOUR MOHAMMED HAMED ALGHAMDI</div>
+              </div>
+            </div>
+
+            <div class="devRole">
+              <div class="ar">مصمم ومطور الأنظمة وبرمجة وتطوير المواقع الإلكترونية</div>
+              <div class="en">Systems Designer &amp; Developer • Websites Programming and Developing</div>
+            </div>
+            <div class="devRole">
+              <div class="ar">وثقية عمل حر   FL-719915135</div>
+            </div>
+
+            <div class="devLinks" aria-label="روابط التواصل">
+              <a href="https://wa.me/966537720207" target="_blank" rel="noopener">📱 واتساب: 0537720207</a>
+              <a href="mailto:mansour9999@hotmail.com">✉️ mansour9999@hotmail.com</a>
+            </div>
+
+            <div class="divider"></div>
+
+            <p class="mutedSm">
+              إذا رغبت المدرسة في تخصيصات (هوية، شاشات إضافية، ربط بيانات، تحسينات خاصة) يتم تقديم عرض مخصص حسب الاحتياج.
+            </p>
+          </article>
+
+          <aside class="glass devMini">
+            <h4>ماذا يشمل التطوير؟</h4>
+            <ul class="devList">
+              <li>تصميم واجهات عربية RTL احترافية</li>
+              <li>تطوير أنظمة مدارس SaaS متعددة المدارس</li>
+              <li>تحسين الأداء وتجربة TV/4K</li>
+              <li>أمان وصلاحيات وإدارة مستخدمين</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <div class="mutedSm">
+              للتواصل السريع: زر واتساب بالأعلى أو نموذج “تواصل”.
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
 
@@ -524,10 +949,12 @@
         <div class="glass foot">
           <div class="footBrand">
             <div class="brandName">أنظمة المدارس الذكية</div>
-            <div class="muted small">منصة التقارير والتذاكر + شاشة العرض الذكية</div>
+            <div class="muted small">نظامان مستقلان: التقارير والتذاكر + شاشة العرض الذكية</div>
           </div>
           <div class="footLinks">
             <a href="#systems">الأنظمة</a>
+            <a href="#pricing">الأسعار</a>
+            <a href="#developer">عن المطور</a>
             <a href="#contact">تواصل</a>
             <a href="#" data-top>أعلى ↑</a>
           </div>
