@@ -1,85 +1,36 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#F8FAFC">
-  <meta name="color-scheme" content="light">
-  <title>أنظمة المدارس الذكية | منصة التقارير والتذاكر + شاشة العرض الذكية</title>
-  <meta name="description" content="حلّان مستقلان للمدارس العربية: منصة التقارير والتذاكر (مرفقات صور فقط) + شاشة عرض ذكية مناسبة TV/4K بواجهة عربية RTL.">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#F8FAFC" />
+  <meta name="color-scheme" content="light" />
+
+  <title>أنظمة المدارس الذكية | منصة التقارير والتذاكر وشاشة العرض الذكية</title>
+  <meta
+    name="description"
+    content="حلّان مستقلان للمدارس العربية: منصة التقارير والتذاكر (مرفقات صور فقط) + شاشة عرض ذكية مناسبة TV/4K بواجهة عربية RTL."
+  />
 
   <!-- (اختياري) خط عربي — احذفه إذا تبي الصفحة بدون أي CDNs -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
 
-  <link rel="stylesheet" href="./assets/css/style.css?v=9">
+  <link rel="stylesheet" href="./assets/css/style.css?v=20251220_2" />
 
   <script>
-    // تم ضبط رقمك لتفعيل زر واتساب
+    // اترك الرقم فارغًا لتعطيل زر واتساب تلقائيًا
     window.SMART_SCHOOLS = {
       brand: "أنظمة المدارس الذكية",
-      whatsappNumber: "966537720207",
+      whatsappNumber: "966537720207", // مثال: "9665XXXXXXXX"
       whatsappPrefill: "السلام عليكم، أرغب بتجربة/عرض سعر لأنظمة المدارس الذكية."
     };
   </script>
-
-  <!-- تحسين بسيط لدعم الجداول/البطاقات + بطاقة المطور -->
-  <style>
-    /* خفيف جدًا — لا يغير هويتك */
-    .tableWrap{overflow:auto;border-radius:16px}
-    table.prTable{width:100%;border-collapse:separate;border-spacing:0;min-width:760px}
-    table.prTable th, table.prTable td{padding:14px 14px;border-bottom:1px solid rgba(148,163,184,.25);vertical-align:top;text-align:right}
-    table.prTable th{font-weight:800}
-    table.prTable tr:last-child td{border-bottom:0}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:700;font-size:.9rem}
-    .pill.ok{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25)}
-    .pill.no{background:rgba(239,68,68,.10);border:1px solid rgba(239,68,68,.25)}
-    .mutedSm{opacity:.8;font-size:.92rem}
-    .kpiRow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    @media (max-width: 900px){ .kpiRow{grid-template-columns:1fr} table.prTable{min-width:680px} }
-    .priceCards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    @media (max-width: 980px){ .priceCards{grid-template-columns:1fr} }
-    .priceCard .priceTop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-    .priceCard .price{font-size:28px;font-weight:900;line-height:1}
-    .priceCard .per{font-weight:700;opacity:.75}
-    .priceCard .save{font-weight:800;opacity:.85}
-    .divider{height:1px;background:rgba(148,163,184,.25);margin:14px 0}
-
-    /* ===== Developer Section (احترافي/متناسق مع glass) ===== */
-    .devGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:stretch}
-    @media (max-width: 980px){ .devGrid{grid-template-columns:1fr} }
-
-    .devCard{padding:18px;border-radius:18px}
-    .devHead{display:flex;gap:14px;align-items:center}
-    .devAvatar{
-      width:56px;height:56px;border-radius:16px;
-      display:grid;place-items:center;
-      font-weight:900;font-size:18px;
-      background:rgba(37,99,235,.12);
-      border:1px solid rgba(37,99,235,.22);
-      flex:0 0 auto;
-    }
-    .devName{font-weight:900;font-size:18px;line-height:1.2}
-    .devNameEn{opacity:.8;font-size:13px;letter-spacing:.3px;margin-top:2px}
-    .devRole{margin-top:10px}
-    .devRole .ar{font-weight:800}
-    .devRole .en{opacity:.85;font-size:13px;margin-top:3px}
-    .devLinks{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-    .devLinks a{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:10px 12px;border-radius:14px;
-      text-decoration:none;
-      border:1px solid rgba(148,163,184,.25);
-      background:rgba(15,23,42,.03);
-      font-weight:800;
-    }
-    .devLinks a:hover{transform:translateY(-1px)}
-    .devMini{padding:16px;border-radius:18px}
-    .devMini h4{margin:0 0 8px;font-size:16px}
-    .devList{margin:0;padding:0 18px}
-    .devList li{margin:6px 0}
-  </style>
 </head>
 
 <body>
@@ -104,7 +55,6 @@
           <a href="#pricing">الأسعار</a>
           <a href="#faq">الأسئلة</a>
           <a href="#contact">تواصل</a>
-          <a href="#developer">عن المطور</a>
         </nav>
 
         <div class="actions">
@@ -118,7 +68,7 @@
             aria-label="فتح القائمة"
             aria-controls="mobileMenu"
             aria-expanded="false">
-            <span class="iconLines" aria-hidden="true"></span>
+            <span class="iconLines" aria-hidden="true"><span></span></span>
           </button>
         </div>
       </div>
@@ -131,8 +81,8 @@
         <a href="#pricing">الأسعار</a>
         <a href="#faq">الأسئلة</a>
         <a href="#contact">تواصل</a>
-        <a href="#developer">عن المطور</a>
         <a class="btn primary menuCta" href="#contact">اطلب عرض سعر ←</a>
+        <a class="btn ghost" id="waMenu" href="#" target="_blank" rel="noopener" hidden>واتساب</a>
       </div>
     </div>
   </header>
@@ -184,6 +134,7 @@
 
         <div class="heroVisual" aria-label="معاينة">
           <div class="heroMedia">
+            <!-- عدّل المسار حسب مجلدك -->
             <img src="./assets/imge/display/11.png" alt="معاينة شاشة العرض الذكية" loading="lazy" draggable="false">
           </div>
         </div>
@@ -219,7 +170,7 @@
             </p>
 
             <ul class="bullets">
-              <li>تقارير يومية/أسبوعية منظمة بالصور</li>
+              <li>تقارير منظمة بالصور</li>
               <li>تذاكر/طلبات بحالات وإسناد وتعليقات</li>
               <li>صلاحيات دقيقة حسب الدور</li>
               <li>طباعة PDF وأرشفة منظمة</li>
@@ -481,15 +432,16 @@
         <div class="sectionHead">
           <div>
             <div class="eyebrow">لقطات</div>
-            <h2>معرض صور واضح لكل نظام</h2>
-            <p class="muted">تصفح الصور يدويًا: أسهم + نقاط + سحب بالماوس/اللمس.</p>
+            <h2>معرض صور النظام</h2>
+            <p class="muted">استعرض واجهات النظامين: شاشة العرض الذكية، ومنصة التقارير.</p>
           </div>
         </div>
 
         <div class="screensGrid">
+          <!-- Display System Gallery -->
           <article class="screenCard glass">
             <div class="screenTitle">شاشة العرض الذكية</div>
-            <p class="muted">واجهة مناسبة للشاشات الكبيرة داخل المدرسة (TV/4K) وتعرض معلومات اليوم بوضوح.</p>
+            <p class="muted">واجهة كبيرة وواضحة (TV/4K) تعرض الوقت، التنبيهات، والجدول.</p>
 
             <div class="gallery" data-gallery>
               <div class="galleryHead">
@@ -501,10 +453,10 @@
 
               <div class="galleryViewport" dir="ltr" tabindex="0" aria-label="معرض شاشة العرض الذكية">
                 <div class="galleryTrack">
-                  <img src="./assets/imge/display/11.png" alt="شاشة العرض 1" loading="lazy" draggable="false">
-                  <img src="./assets/imge/display/12.png" alt="شاشة العرض 2" loading="lazy" draggable="false">
-                  <img src="./assets/imge/display/13.png" alt="شاشة العرض 3" loading="lazy" draggable="false">
-                  <img src="./assets/imge/display/14.png" alt="شاشة العرض 4" loading="lazy" draggable="false">
+                  <img src="./assets/imge/display/11.png" alt="شاشة العرض - الرئيسية" loading="lazy" draggable="false">
+                  <img src="./assets/imge/display/12.png" alt="شاشة العرض - الجدول" loading="lazy" draggable="false">
+                  <img src="./assets/imge/display/13.png" alt="شاشة العرض - التنبيهات" loading="lazy" draggable="false">
+                  <img src="./assets/imge/display/14.png" alt="شاشة العرض - وضع الانتظار" loading="lazy" draggable="false">
                 </div>
               </div>
 
@@ -512,9 +464,10 @@
             </div>
           </article>
 
+          <!-- Reports System Gallery -->
           <article class="screenCard glass">
             <div class="screenTitle">منصة التقارير والتذاكر</div>
-            <p class="muted">توثيق تقارير المدرسة وإدارة التذاكر/الطلبات مع مرفقات صور فقط.</p>
+            <p class="muted">لوحة تحكم شاملة للإدارة، المعلمين، والمشرفين.</p>
 
             <div class="gallery" data-gallery>
               <div class="galleryHead">
@@ -524,14 +477,14 @@
                 </div>
               </div>
 
-              <div class="galleryViewport" dir="ltr" tabindex="0" aria-label="معرض منصة التقارير والتذاكر">
+              <div class="galleryViewport" dir="ltr" tabindex="0" aria-label="معرض منصة التقارير">
                 <div class="galleryTrack">
-                  <img src="./assets/imge/reports/01.png" alt="تقرير 1" loading="lazy" draggable="false">
-                  <img src="./assets/imge/reports/02.png" alt="تقرير 2" loading="lazy" draggable="false">
-                  <img src="./assets/imge/reports/03.png" alt="تقرير 3" loading="lazy" draggable="false">
-                  <img src="./assets/imge/reports/04.png" alt="تقرير 4" loading="lazy" draggable="false">
-                  <img src="./assets/imge/reports/05.png" alt="تقرير 5" loading="lazy" draggable="false">
-                  <img src="./assets/imge/reports/06.png" alt="تقرير 6" loading="lazy" draggable="false">
+                  <img src="./assets/imge/reports/01.png" alt="لوحة التحكم" loading="lazy" draggable="false">
+                  <img src="./assets/imge/reports/02.png" alt="الإعدادات العامة" loading="lazy" draggable="false">
+                  <img src="./assets/imge/reports/03.png" alt="الملف الشخصي" loading="lazy" draggable="false">
+                  <img src="./assets/imge/reports/04.png" alt="قائمة التذاكر" loading="lazy" draggable="false">
+                  <img src="./assets/imge/reports/05.png" alt="إضافة تقرير جديد" loading="lazy" draggable="false">
+                  <img src="./assets/imge/reports/06.png" alt="تفاصيل التذكرة" loading="lazy" draggable="false">
                 </div>
               </div>
 
@@ -549,218 +502,388 @@
           <div>
             <div class="eyebrow">الأسعار</div>
             <h2>أسعار واضحة — كل نظام منفصل</h2>
-            <p class="muted">اختر نظامًا واحدًا أو اطلب عرضًا خاصًا للاشتراك في النظامين معًا.</p>
+            <p class="muted">يمكنك الاشتراك نصف سنوي أو سنوي، ومع شاشة العرض يمكن إضافة شاشات إضافية شهريًا.</p>
           </div>
           <div class="sectionActions">
             <a class="btn primary" href="#contact">اطلب عرض سعر ←</a>
           </div>
         </div>
 
+        <div class="glass mini" aria-label="خصم الاشتراك في النظامين">
+          <div class="miniTitle">🎁 خصم عند الاشتراك في النظامين معًا</div>
+          <p class="muted">عند الاشتراك في النظامين معًا تحصل على خصم <b>10%</b> للنصف سنوي و<b>15%</b> للسنوي.</p>
+          <p class="hint">* الخصم لا يشمل إضافة الشاشات <b>55 ريال/شهر</b> أو أي خدمات إضافية.</p>
+        </div>
+
         <!-- Reports Pricing -->
-        <div id="pricing-reports" class="glass" style="padding:16px;border-radius:18px">
-          <div class="sectionHead" style="margin:0 0 10px">
+        <div id="pricing-reports" class="glass pricingBlock">
+          <div class="sectionHead" style="margin:0 0 8px">
             <div>
-              <div class="eyebrow">منصة التقارير والتذاكر</div>
+              <div class="eyebrow">📑 منصة التذاكر والتقارير</div>
               <h3 style="margin:6px 0 0">باقات الاشتراك</h3>
               <p class="muted">تشمل التقارير + التذاكر + الصلاحيات + الطباعة PDF. (المرفقات: صور فقط)</p>
             </div>
+            <div class="sectionActions">
+              <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">زيارة النظام</a>
+            </div>
           </div>
 
-          <div class="priceCards">
-            <article class="glass priceCard" style="padding:16px">
-              <div class="priceTop">
-                <div>
-                  <div class="miniTitle">الأساس</div>
-                  <div class="mutedSm">حتى 30 معلم</div>
-                </div>
-                <div>
-                  <div class="price">69 <span class="per">ريال/شهر</span></div>
-                  <div class="save mutedSm">690 ريال/سنة</div>
-                </div>
-              </div>
-              <div class="divider"></div>
-              <ul class="bullets">
-                <li>تقارير منظمة بالصور</li>
-                <li>تذاكر بحالات وإسناد</li>
-                <li>صلاحيات حسب الدور</li>
-                <li>تصدير/طباعة PDF</li>
-              </ul>
-              <div class="cardCtas">
-                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
-                <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">زيارة النظام</a>
-              </div>
-            </article>
+          <div class="tabs" data-tabs aria-label="تبويبات أسعار منصة التذاكر والتقارير">
+            <button class="tabBtn" type="button" role="tab" aria-selected="true" aria-controls="reports-6m" data-tab="reports-6m">نصف سنوي (6 أشهر)</button>
+            <button class="tabBtn" type="button" role="tab" aria-selected="false" aria-controls="reports-12m" data-tab="reports-12m">سنوي (12 شهر)</button>
+          </div>
 
-            <article class="glass priceCard" style="padding:16px">
-              <div class="priceTop">
-                <div>
-                  <div class="miniTitle">المتقدمة ⭐</div>
-                  <div class="mutedSm">حتى 60 معلم</div>
+          <div id="reports-6m" class="tabPanel" role="tabpanel">
+            <div class="priceCards">
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">Starter</div>
+                    <div class="mutedSm">حتى 25 معلم</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">595 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 6 أشهر</div>
+                  </div>
                 </div>
-                <div>
-                  <div class="price">99 <span class="per">ريال/شهر</span></div>
-                  <div class="save mutedSm">990 ريال/سنة</div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>تقارير منظمة بالصور</li>
+                  <li>تذاكر بحالات وإسناد</li>
+                  <li>صلاحيات حسب الدور</li>
+                  <li>تصدير/طباعة PDF</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">فتح المنصة</a>
                 </div>
-              </div>
-              <div class="divider"></div>
-              <ul class="bullets">
-                <li>كل مزايا الأساس</li>
-                <li>تقارير أكثر وتنظيم أعلى</li>
-                <li>أفضل خيار لمعظم المدارس</li>
-                <li>دعم محسّن</li>
-              </ul>
-              <div class="cardCtas">
-                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
-                <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">زيارة النظام</a>
-              </div>
-            </article>
+              </article>
 
-            <article class="glass priceCard" style="padding:16px">
-              <div class="priceTop">
-                <div>
-                  <div class="miniTitle">المفتوحة</div>
-                  <div class="mutedSm">معلّمون غير محدود</div>
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">Standard ⭐</div>
+                    <div class="mutedSm">حتى 50 معلم</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">895 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 6 أشهر</div>
+                  </div>
                 </div>
-                <div>
-                  <div class="price">129 <span class="per">ريال/شهر</span></div>
-                  <div class="save mutedSm">1290 ريال/سنة</div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>أفضل خيار لمعظم المدارس</li>
+                  <li>كل مزايا Starter</li>
+                  <li>تنظيم أعلى + متابعة أدق</li>
+                  <li>دعم محسّن</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">فتح المنصة</a>
                 </div>
-              </div>
-              <div class="divider"></div>
-              <ul class="bullets">
-                <li>كل مزايا المتقدمة</li>
-                <li>مناسبة للمدارس الكبيرة</li>
-                <li>هيكلة أدوار وصلاحيات</li>
-                <li>أولوية دعم</li>
-              </ul>
-              <div class="cardCtas">
-                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
-                <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">زيارة النظام</a>
-              </div>
-            </article>
+              </article>
+
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">Pro</div>
+                    <div class="mutedSm">حتى 100 معلم</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">1,305 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 6 أشهر</div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>مناسب للمدارس الكبيرة</li>
+                  <li>كل مزايا Standard</li>
+                  <li>سعة أكبر للمستخدمين</li>
+                  <li>أولوية دعم</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">فتح المنصة</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div id="reports-12m" class="tabPanel" role="tabpanel" hidden>
+            <div class="priceCards">
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">Starter</div>
+                    <div class="mutedSm">حتى 25 معلم</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">1,010 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 12 شهر</div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>تقارير منظمة بالصور</li>
+                  <li>تذاكر بحالات وإسناد</li>
+                  <li>صلاحيات حسب الدور</li>
+                  <li>تصدير/طباعة PDF</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">فتح المنصة</a>
+                </div>
+              </article>
+
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">Standard ⭐</div>
+                    <div class="mutedSm">حتى 50 معلم</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">1,520 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 12 شهر</div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>أفضل خيار لمعظم المدارس</li>
+                  <li>كل مزايا Starter</li>
+                  <li>تنظيم أعلى + متابعة أدق</li>
+                  <li>دعم محسّن</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">فتح المنصة</a>
+                </div>
+              </article>
+
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">Pro</div>
+                    <div class="mutedSm">حتى 100 معلم</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">2,220 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 12 شهر</div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>مناسب للمدارس الكبيرة</li>
+                  <li>كل مزايا Standard</li>
+                  <li>سعة أكبر للمستخدمين</li>
+                  <li>أولوية دعم</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener">فتح المنصة</a>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
 
         <div class="divider"></div>
 
         <!-- Display Pricing -->
-        <div id="pricing-display" class="glass" style="padding:16px;border-radius:18px">
-          <div class="sectionHead" style="margin:0 0 10px">
+        <div id="pricing-display" class="glass pricingBlock">
+          <div class="sectionHead" style="margin:0 0 8px">
             <div>
-              <div class="eyebrow">شاشة العرض الذكية</div>
+              <div class="eyebrow">🖥️ منصة شاشة العرض الذكية</div>
               <h3 style="margin:6px 0 0">باقات الاشتراك</h3>
               <p class="muted">تشمل لوحة عرض للشاشات داخل المدرسة + تحديث تلقائي + دعم TV/4K.</p>
             </div>
+            <div class="sectionActions">
+              <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">زيارة النظام</a>
+            </div>
           </div>
 
-          <div class="priceCards">
-            <article class="glass priceCard" style="padding:16px">
-              <div class="priceTop">
-                <div>
-                  <div class="miniTitle">شاشة واحدة</div>
-                  <div class="mutedSm">حتى 1 شاشة</div>
-                </div>
-                <div>
-                  <div class="price">59 <span class="per">ريال/شهر</span></div>
-                  <div class="save mutedSm">590 ريال/سنة</div>
-                </div>
-              </div>
-              <div class="divider"></div>
-              <ul class="bullets">
-                <li>واجهة TV/4K واضحة</li>
-                <li>تحديث تلقائي</li>
-                <li>إعدادات عناصر العرض</li>
-                <li>هوية المدرسة (اسم/شعار)</li>
-              </ul>
-              <div class="cardCtas">
-                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
-                <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">زيارة النظام</a>
-              </div>
-            </article>
+          <div class="tabs" data-tabs aria-label="تبويبات أسعار منصة شاشة العرض الذكية">
+            <button class="tabBtn" type="button" role="tab" aria-selected="true" aria-controls="display-6m" data-tab="display-6m">نصف سنوي (6 أشهر)</button>
+            <button class="tabBtn" type="button" role="tab" aria-selected="false" aria-controls="display-12m" data-tab="display-12m">سنوي (12 شهر)</button>
+          </div>
 
-            <article class="glass priceCard" style="padding:16px">
-              <div class="priceTop">
-                <div>
-                  <div class="miniTitle">باقة شاشات ⭐</div>
-                  <div class="mutedSm">حتى 3 شاشات</div>
+          <div id="display-6m" class="tabPanel" role="tabpanel">
+            <div class="priceCards">
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">أساسية</div>
+                    <div class="mutedSm">1 شاشة</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">465 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 6 أشهر</div>
+                  </div>
                 </div>
-                <div>
-                  <div class="price">99 <span class="per">ريال/شهر</span></div>
-                  <div class="save mutedSm">990 ريال/سنة</div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>واجهة TV/4K واضحة</li>
+                  <li>تحديث تلقائي</li>
+                  <li>إعدادات عناصر العرض</li>
+                  <li>هوية المدرسة (اسم/شعار)</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">فتح النظام</a>
                 </div>
-              </div>
-              <div class="divider"></div>
-              <ul class="bullets">
-                <li>أفضل خيار لمعظم المدارس</li>
-                <li>تشغيل عدة شاشات</li>
-                <li>إدارة كل شاشة من لوحة التحكم</li>
-                <li>دعم محسّن</li>
-              </ul>
-              <div class="cardCtas">
-                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
-                <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">زيارة النظام</a>
-              </div>
-            </article>
+              </article>
 
-            <article class="glass priceCard" style="padding:16px">
-              <div class="priceTop">
-                <div>
-                  <div class="miniTitle">باقة موسّعة</div>
-                  <div class="mutedSm">حتى 5 شاشات</div>
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">متقدمة ⭐</div>
+                    <div class="mutedSm">3 شاشات</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">775 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 6 أشهر</div>
+                  </div>
                 </div>
-                <div>
-                  <div class="price">139 <span class="per">ريال/شهر</span></div>
-                  <div class="save mutedSm">1390 ريال/سنة</div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>أفضل خيار لمعظم المدارس</li>
+                  <li>إدارة كل شاشة من لوحة التحكم</li>
+                  <li>تشغيل عدة شاشات</li>
+                  <li>دعم محسّن</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">فتح النظام</a>
                 </div>
-              </div>
-              <div class="divider"></div>
-              <ul class="bullets">
-                <li>للمدارس الكبيرة</li>
-                <li>مرونة أعلى في توزيع الشاشات</li>
-                <li>أولوية دعم</li>
-                <li>تشغيل مستقر للشاشات</li>
-              </ul>
-              <div class="cardCtas">
-                <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
-                <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">زيارة النظام</a>
-              </div>
-            </article>
+              </article>
+
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">مؤسسية</div>
+                    <div class="mutedSm">5 شاشات</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">1,055 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 6 أشهر</div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>للمدارس الكبيرة</li>
+                  <li>مرونة أعلى في توزيع الشاشات</li>
+                  <li>أولوية دعم</li>
+                  <li>تشغيل مستقر للشاشات</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">فتح النظام</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div id="display-12m" class="tabPanel" role="tabpanel" hidden>
+            <div class="priceCards">
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">أساسية</div>
+                    <div class="mutedSm">1 شاشة</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">745 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 12 شهر</div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>واجهة TV/4K واضحة</li>
+                  <li>تحديث تلقائي</li>
+                  <li>إعدادات عناصر العرض</li>
+                  <li>هوية المدرسة (اسم/شعار)</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">فتح النظام</a>
+                </div>
+              </article>
+
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">متقدمة ⭐</div>
+                    <div class="mutedSm">3 شاشات</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">1,245 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 12 شهر</div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>أفضل خيار لمعظم المدارس</li>
+                  <li>إدارة كل شاشة من لوحة التحكم</li>
+                  <li>تشغيل عدة شاشات</li>
+                  <li>دعم محسّن</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">فتح النظام</a>
+                </div>
+              </article>
+
+              <article class="glass priceCard">
+                <div class="priceTop">
+                  <div>
+                    <div class="miniTitle">مؤسسية</div>
+                    <div class="mutedSm">5 شاشات</div>
+                  </div>
+                  <div style="text-align:left">
+                    <div class="price">1,695 <span class="per">ريال</span></div>
+                    <div class="mutedSm">لمدة 12 شهر</div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <ul class="bullets">
+                  <li>للمدارس الكبيرة</li>
+                  <li>مرونة أعلى في توزيع الشاشات</li>
+                  <li>أولوية دعم</li>
+                  <li>تشغيل مستقر للشاشات</li>
+                </ul>
+                <div class="cardCtas">
+                  <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
+                  <a class="btn ghost" href="https://school-display.com/" target="_blank" rel="noopener">فتح النظام</a>
+                </div>
+              </article>
+            </div>
           </div>
 
           <div class="divider"></div>
 
-          <div class="glass mini" style="padding:14px">
-            <div class="miniTitle">إضافة شاشات (Add-On)</div>
-            <p class="muted">إذا احتجت عددًا أكبر من الشاشات من الباقة، أضف شاشات إضافية بسعر ثابت:</p>
-            <div class="tableWrap">
-              <table class="prTable" aria-label="إضافة شاشات">
+          <div class="glass mini">
+            <div class="miniTitle">➕ إضافة شاشة عرض إضافية</div>
+            <p class="muted">إذا احتجت عددًا أكبر من الشاشات من الباقة، يمكنك إضافة شاشات إضافية بسعر ثابت (يتطلب اشتراك فعّال):</p>
+
+            <div class="tableWrap" style="margin-top:10px">
+              <table class="prTable" aria-label="إضافة شاشة عرض إضافية">
                 <thead>
                   <tr>
                     <th>الإضافة</th>
                     <th>السعر الشهري</th>
-                    <th>السعر السنوي</th>
+                    <th>مرونة</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td><b>شاشة إضافية</b></td>
-                    <td>25 ريال</td>
-                    <td>250 ريال</td>
-                  </tr>
-                  <tr>
-                    <td><b>شاشتان إضافيتان</b></td>
-                    <td>40 ريال</td>
-                    <td>400 ريال</td>
-                  </tr>
-                  <tr>
-                    <td><b>3 شاشات إضافية</b></td>
-                    <td>55 ريال</td>
-                    <td>550 ريال</td>
+                    <td><b>55 ريال</b> شهريًا لكل شاشة</td>
+                    <td>يمكن الإضافة أو الإلغاء في أي وقت</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <p class="mutedSm" style="margin:10px 0 0">* اترك خانة عدد الشاشات في نموذج التواصل لتصلك توصية تلقائية بالباقة المناسبة.</p>
+
+            <p class="hint">* اذكر عدد الشاشات في نموذج التواصل وسنقترح الباقة الأنسب.</p>
           </div>
         </div>
       </div>
@@ -806,42 +929,42 @@
       <div class="container leadGrid">
         <div class="glass leadCard">
           <div class="eyebrow">تواصل</div>
-          <h2>اطلب عرض سعر / تجربة</h2>
+          <h2 style="margin:6px 0 0">اطلب عرض سعر / تجربة</h2>
           <p class="muted">املأ البيانات وسيتم تجهيز عرض مناسب لمدرستك.</p>
 
           <form id="leadForm" class="form" novalidate>
             <div class="row2">
               <div class="field">
                 <label for="schoolName">اسم المدرسة *</label>
-                <input id="schoolName" name="school" required maxlength="120" placeholder="مثال: مدرسة الأمل">
+                <input id="schoolName" name="school" required maxlength="120" placeholder="مثال: مدرسة الأمل" />
               </div>
               <div class="field">
                 <label for="city">المدينة *</label>
-                <input id="city" name="city" required maxlength="80" placeholder="مثال: الرياض">
+                <input id="city" name="city" required maxlength="80" placeholder="مثال: الرياض" />
               </div>
             </div>
 
             <div class="row2">
               <div class="field">
                 <label for="contactName">اسم المسؤول *</label>
-                <input id="contactName" name="name" required maxlength="80" placeholder="الاسم">
+                <input id="contactName" name="name" required maxlength="80" placeholder="الاسم" />
               </div>
               <div class="field">
                 <label for="phone">رقم الجوال *</label>
-                <input id="phone" name="phone" required inputmode="tel" maxlength="30" placeholder="05xxxxxxxx">
+                <input id="phone" name="phone" required inputmode="tel" maxlength="30" placeholder="05xxxxxxxx" />
               </div>
             </div>
 
             <div class="row2">
               <div class="field pick">
                 <div class="pickTitle muted">المنتج المطلوب</div>
-                <label class="chk"><input type="checkbox" name="product" value="reports"> منصة التقارير والتذاكر</label>
-                <label class="chk"><input type="checkbox" name="product" value="display"> شاشة العرض الذكية</label>
+                <label class="chk"><input type="checkbox" name="product" value="reports" /> منصة التقارير والتذاكر</label>
+                <label class="chk"><input type="checkbox" name="product" value="display" /> شاشة العرض الذكية</label>
               </div>
 
               <div class="field">
                 <label for="screens">عدد الشاشات (اختياري)</label>
-                <input id="screens" name="screens" inputmode="numeric" maxlength="10" placeholder="مثال: 2">
+                <input id="screens" name="screens" inputmode="numeric" maxlength="10" placeholder="مثال: 2" />
                 <div class="hint muted">اتركه فارغًا إذا لا توجد شاشات.</div>
               </div>
             </div>
@@ -856,7 +979,7 @@
               <a class="btn ghost" id="waQuick" href="#" target="_blank" rel="noopener" hidden>فتح واتساب مباشرة</a>
             </div>
 
-            <p class="muted small" id="formMsg" aria-live="polite"></p>
+            <p class="small" id="formMsg" aria-live="polite"></p>
           </form>
         </div>
 
@@ -880,83 +1003,18 @@
       </div>
     </section>
 
-    <!-- ===== Developer (مضاف) ===== -->
-    <section id="developer" class="section">
-      <div class="container">
-        <div class="sectionHead">
-          <div>
-            <div class="eyebrow">عن المطور</div>
-            <h2>مصمم ومطور الأنظمة</h2>
-            <p class="muted">بيانات التواصل الرسمية لمصمم ومطور الأنظمة لهذه المنصات.</p>
-          </div>
-          <div class="sectionActions">
-            <a class="btn ghost" href="#contact">طلب عرض سعر</a>
-            <a class="btn primary" href="https://wa.me/966537720207" target="_blank" rel="noopener">تواصل واتساب ←</a>
-          </div>
-        </div>
-
-        <div class="devGrid">
-          <article class="glass devCard">
-            <div class="devHead">
-              <div class="devAvatar" aria-hidden="true">M</div>
-              <div>
-                <div class="devName">منصور محمد بن حامد الغامدي</div>
-                <div class="devNameEn">MANSOUR MOHAMMED HAMED ALGHAMDI</div>
-              </div>
-            </div>
-
-            <div class="devRole">
-              <div class="ar">مصمم ومطور الأنظمة وبرمجة وتطوير المواقع الإلكترونية</div>
-              <div class="en">Systems Designer &amp; Developer • Websites Programming and Developing</div>
-            </div>
-            <div class="devRole">
-              <div class="ar">وثقية عمل حر   FL-719915135</div>
-            </div>
-
-            <div class="devLinks" aria-label="روابط التواصل">
-              <a href="https://wa.me/966537720207" target="_blank" rel="noopener">📱 واتساب: 0537720207</a>
-              <a href="mailto:mansour9999@hotmail.com">✉️ mansour9999@hotmail.com</a>
-            </div>
-
-            <div class="divider"></div>
-
-            <p class="mutedSm">
-              إذا رغبت المدرسة في تخصيصات (هوية، شاشات إضافية، ربط بيانات، تحسينات خاصة) يتم تقديم عرض مخصص حسب الاحتياج.
-            </p>
-          </article>
-
-          <aside class="glass devMini">
-            <h4>ماذا يشمل التطوير؟</h4>
-            <ul class="devList">
-              <li>تصميم واجهات عربية RTL احترافية</li>
-              <li>تطوير أنظمة مدارس SaaS متعددة المدارس</li>
-              <li>تحسين الأداء وتجربة TV/4K</li>
-              <li>أمان وصلاحيات وإدارة مستخدمين</li>
-            </ul>
-
-            <div class="divider"></div>
-
-            <div class="mutedSm">
-              للتواصل السريع: زر واتساب بالأعلى أو نموذج “تواصل”.
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
     <footer class="footer">
       <div class="container">
         <div class="glass foot">
           <div class="footBrand">
             <div class="brandName">أنظمة المدارس الذكية</div>
-            <div class="muted small">نظامان مستقلان: التقارير والتذاكر + شاشة العرض الذكية</div>
+            <div class="small">نظامان مستقلان: التقارير والتذاكر + شاشة العرض الذكية</div>
           </div>
           <div class="footLinks">
             <a href="#systems">الأنظمة</a>
             <a href="#pricing">الأسعار</a>
-            <a href="#developer">عن المطور</a>
             <a href="#contact">تواصل</a>
-            <a href="#" data-top>أعلى ↑</a>
+            <a href="#hero" data-top>أعلى ↑</a>
           </div>
         </div>
       </div>
@@ -965,6 +1023,6 @@
     <div class="toast" data-toast hidden></div>
   </main>
 
-  <script src="./assets/js/app.js?v=2" defer></script>
+  <script src="./assets/js/app.js?v=20251220_2" defer></script>
 </body>
 </html>

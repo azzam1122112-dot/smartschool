@@ -1,413 +1,396 @@
-"use strict";
-
+/* assets/js/site.js */
 (function () {
-  const cfg = window.SMART_SCHOOLS || {};
-  const waNumber = String(cfg.whatsappNumber || "").replace(/\D/g, "");
-  const waPrefill = String(cfg.whatsappPrefill || "أرغب بالتواصل");
-  const waBase = "https://wa.me/";
+  "use strict";
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-  function enc(s) { return encodeURIComponent(String(s ?? "")); }
+  // ===== Topbar scroll effect =====
+  const topbar = $("[data-topbar]");
+  const onScroll = () => {
+    if (!topbar) return;
+    topbar.classList.toggle("isScrolled", (window.scrollY || 0) > 8);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 
-  function toast(msg, ms = 2400) {
-    const el = $("[data-toast]");
-    if (!el) return;
-    el.textContent = msg;
-    el.hidden = false;
-    clearTimeout(toast._t);
-    toast._t = setTimeout(() => { el.hidden = true; el.textContent = ""; }, ms);
+  // ===== Mobile Menu =====
+  const menuBtn = $("[data-menu-btn]");
+  const menu = $("[data-menu]");
+  function setMenu(open) {
+    if (!menuBtn || !menu) return;
+    const isOpen = Boolean(open);
+    if (isOpen) menu.removeAttribute("hidden");
+    else menu.setAttribute("hidden", "");
+    menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  }
+  function toggleMenu() {
+    if (!menu) return;
+    setMenu(menu.hasAttribute("hidden"));
+  }
+  if (menuBtn && menu) {
+    menuBtn.addEventListener("click", toggleMenu);
+
+    document.addEventListener("click", (e) => {
+      const inside = menu.contains(e.target) || menuBtn.contains(e.target);
+      if (!inside && !menu.hasAttribute("hidden")) setMenu(false);
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !menu.hasAttribute("hidden")) setMenu(false);
+    });
+
+    $$("#mobileMenu a").forEach((a) =>
+      a.addEventListener("click", () => setMenu(false))
+    );
+
+    window.addEventListener("resize", () => {
+      // عند الانتقال لسطح المكتب نخفي القائمة لتجنب حالات غريبة
+      if (window.innerWidth > 980 && !menu.hasAttribute("hidden")) setMenu(false);
+    });
   }
 
-  function buildWaLink(message) {
+  // ===== WhatsApp Helpers =====
+  const cfg = window.SMART_SCHOOLS || {};
+  const waNumber = String(cfg.whatsappNumber || "").replace(/\D/g, "");
+  const waPrefill = String(cfg.whatsappPrefill || "");
+
+  const waUrl = (txt) => {
     if (!waNumber) return "#";
-    return `${waBase}${waNumber}?text=${enc(message)}`;
-  }
+    const message = String(txt || waPrefill || "").trim();
+    const encoded = message ? "?text=" + encodeURIComponent(message) : "";
+    return "https://wa.me/" + waNumber + encoded;
+  };
 
-  function setWhatsAppLinks() {
-    const waTop = $("#waTop");
-    const waQuick = $("#waQuick");
-    const link = buildWaLink(waPrefill);
+  const waTop = $("#waTop");
+  const waMenu = $("#waMenu");
+  const waQuick = $("#waQuick");
 
-    const enabled = !!waNumber;
-    if (waTop) {
-      waTop.hidden = !enabled;
-      waTop.href = enabled ? link : "#";
-    }
-    if (waQuick) {
-      waQuick.hidden = !enabled;
-      waQuick.href = enabled ? link : "#";
-    }
-  }
-
-  function normalizePhone(s) {
-    s = String(s || "").trim();
-    const cleaned = s.replace(/[^\d+]/g, "");
-    if (cleaned.length < 8) return "";
-    return cleaned.slice(0, 20);
-  }
-
-  function safeText(s, maxLen) {
-    s = String(s ?? "").trim().replace(/\r/g, "");
-    if (s.length > maxLen) s = s.slice(0, maxLen);
-    return s;
-  }
-
-  function selectedProducts(form) {
-    const values = [];
-    $$('input[name="product"]:checked', form).forEach((el) => {
-      const v = String(el.value || "");
-      if (v === "reports" || v === "display") values.push(v);
-    });
-    return values;
-  }
-
-  function productLabel(v) {
-    if (v === "reports") return "منصة التقارير والتذاكر";
-    if (v === "display") return "شاشة العرض الذكية";
-    return v;
-  }
-
-  function composeLeadMessage(data) {
-    const products = data.products.map(productLabel);
-    return [
-      "طلب عرض سعر/تجربة — أنظمة المدارس الذكية",
-      "—",
-      `المدرسة: ${data.school || "-"}`,
-      `المدينة: ${data.city || "-"}`,
-      `المسؤول: ${data.name || "-"}`,
-      `الجوال: ${data.phone || "-"}`,
-      `المنتجات: ${products.length ? products.join("، ") : "غير محدد"}`,
-      `عدد الشاشات: ${data.screens || "—"}`,
-      `ملاحظات: ${data.notes || "—"}`
-    ].join("\n");
-  }
-
-  function handleLeadSubmit(e) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const msgEl = $("#formMsg");
-
+  function updateWAButtons() {
     if (!waNumber) {
-      if (msgEl) msgEl.textContent = "لتفعيل الإرسال عبر واتساب: ضع رقمك داخل SMART_SCHOOLS.whatsappNumber في index.html.";
-      toast("فعّل رقم واتساب أولًا.");
+      [waTop, waMenu, waQuick].forEach((el) => {
+        if (el) el.hidden = true;
+      });
       return;
     }
+    const url = waUrl();
+    [waTop, waMenu, waQuick].forEach((el) => {
+      if (!el) return;
+      el.href = url;
+      el.hidden = false;
+    });
+  }
+  updateWAButtons();
 
-    const fd = new FormData(form);
-    const school = safeText(fd.get("school"), 120);
-    const city = safeText(fd.get("city"), 80);
-    const name = safeText(fd.get("name"), 80);
-    const phone = normalizePhone(fd.get("phone"));
-    const screens = safeText(fd.get("screens"), 10).replace(/[^\d]/g, "").slice(0, 6);
-    const notes = safeText(fd.get("notes"), 500);
-    const products = selectedProducts(form);
+  // ===== Toast =====
+  const toast = $("[data-toast]");
+  let toastT = null;
 
-    if (!school || !city || !name || !phone) {
-      if (msgEl) msgEl.textContent = "فضلاً أكمل: اسم المدرسة، المدينة، اسم المسؤول، رقم الجوال.";
-      toast("تحقق من الحقول المطلوبة.");
-      return;
-    }
-
-    const link = buildWaLink(composeLeadMessage({ school, city, name, phone, screens, notes, products }));
-    try {
-      window.open(link, "_blank", "noopener,noreferrer");
-      if (msgEl) msgEl.textContent = "تم فتح واتساب لإرسال الطلب.";
-      toast("تم فتح واتساب.");
-    } catch (err) {
-      console.error("WhatsApp open failed:", err);
-      if (msgEl) msgEl.textContent = "تعذر فتح واتساب. جرّب متصفحًا آخر.";
-      toast("تعذر فتح واتساب.");
-    }
+  function escapeHtml(s) {
+    return String(s || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
-  function initMenu() {
-    const btn = $("[data-menu-btn]");
-    const menu = $("[data-menu]");
-    if (!btn || !menu) return;
-
-    menu.hidden = true;
-    btn.setAttribute("aria-expanded", "false");
-
-    function isDesktop() {
-      return window.matchMedia("(min-width: 900px)").matches;
-    }
-
-    function setOpen(open) {
-      if (isDesktop()) open = false;
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
-      menu.hidden = !open;
-    }
-
-    btn.addEventListener("click", () => {
-      const open = btn.getAttribute("aria-expanded") === "true";
-      setOpen(!open);
-    });
-
-    document.addEventListener("click", (e) => {
-      if (menu.hidden) return;
-      if (e.target.closest("[data-menu]") || e.target.closest("[data-menu-btn]")) return;
-      setOpen(false);
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") setOpen(false);
-    });
-
-    window.addEventListener("resize", () => setOpen(false), { passive: true });
-
-    menu.addEventListener("click", (e) => {
-      const a = e.target.closest("a");
-      if (a) setOpen(false);
-    });
-
-    if (isDesktop()) setOpen(false);
+  function hideToast() {
+    if (!toast) return;
+    toast.hidden = true;
+    clearTimeout(toastT);
+    toastT = null;
   }
 
-  function initAnchors() {
-    document.addEventListener("click", (e) => {
-      const a = e.target.closest('a[href^="#"]');
-      if (!a) return;
+  function showToast(text) {
+    if (!toast) return;
+    toast.innerHTML = "";
+    const left = document.createElement("div");
+    left.innerHTML =
+      "<strong>تنبيه</strong><div class='small' style='margin-top:4px;color:var(--muted)'>" +
+      escapeHtml(text) +
+      "</div>";
 
-      const href = a.getAttribute("href");
-      if (!href || href === "#") return;
+    const btn = document.createElement("button");
+    btn.className = "toastBtn";
+    btn.type = "button";
+    btn.textContent = "إغلاق";
+    btn.addEventListener("click", hideToast);
 
-      const target = document.querySelector(href);
-      if (!target) return;
+    toast.append(left, btn);
+    toast.hidden = false;
 
-      e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.pushState(null, "", href);
-    });
-
-    const topLink = document.querySelector("[data-top]");
-    if (topLink) {
-      topLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    }
+    clearTimeout(toastT);
+    toastT = setTimeout(hideToast, 4500);
   }
 
-  // سويتش مستقل: outcomes و how (بدون دمج)
-  function initSwitches() {
-    const switches = $$("[data-switch]");
-    if (!switches.length) return;
+  // ===== Tabs (A11y + Keyboard) =====
+  function initTabs(tabsRoot) {
+    const btns = $$('[role="tab"]', tabsRoot);
+    if (!btns.length) return;
 
-    function setGroupActive(group, targetId) {
-      // Buttons
-      const btns = $$(`[data-switch="${group}"]`);
-      btns.forEach((b) => {
-        const on = b.getAttribute("data-target") === targetId;
-        b.classList.toggle("isActive", on);
-        b.setAttribute("aria-selected", on ? "true" : "false");
-      });
+    const panels = btns
+      .map((b) => document.getElementById(b.getAttribute("aria-controls") || ""))
+      .filter(Boolean);
 
-      // Panels
-      const panels = $$(".switchPanel").filter(p => p.id && p.id.startsWith(group + "-"));
-      panels.forEach((p) => {
-        const show = p.id === targetId;
-        p.hidden = !show;
-        p.classList.toggle("isActive", show);
+    function activate(btn) {
+      const id = btn.getAttribute("data-tab");
+      if (!id) return;
+
+      btns.forEach((b, i) => {
+        const selected = b === btn;
+        b.setAttribute("aria-selected", selected ? "true" : "false");
+        b.tabIndex = selected ? 0 : -1;
+
+        const p = panels[i];
+        if (p) p.hidden = p.id !== id;
       });
+      btn.focus({ preventScroll: true });
     }
 
-    switches.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const group = btn.getAttribute("data-switch");
-        const target = btn.getAttribute("data-target");
-        if (!group || !target) return;
-        setGroupActive(group, target);
-      });
+    // init state
+    btns.forEach((b, i) => {
+      const selected = b.getAttribute("aria-selected") === "true";
+      b.tabIndex = selected ? 0 : -1;
+
+      const p = panels[i];
+      if (p) p.hidden = !selected;
     });
 
-    // Defaults
-    setGroupActive("outcomes", "outcomes-reports");
-    setGroupActive("how", "how-reports");
-  }
-    
-  function initGalleries() {
-    const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    btns.forEach((btn) => {
+      btn.addEventListener("click", () => activate(btn));
+      btn.addEventListener("keydown", (e) => {
+        const idx = btns.indexOf(btn);
+        if (idx < 0) return;
 
-    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
-
-    function getSlides(viewport) {
-      return Array.from(viewport.querySelectorAll("img"));
-    }
-
-    function scrollToSlide(viewport, slide, behavior) {
-      if (!slide) return;
-      const left = slide.offsetLeft;
-      viewport.scrollTo({ left, behavior });
-    }
-
-    $$('[data-gallery]').forEach((gallery) => {
-      const viewport = gallery.querySelector('.galleryViewport');
-      const dotsEl = gallery.querySelector('[data-dots]');
-      const prevBtn = gallery.querySelector('[data-prev]');
-      const nextBtn = gallery.querySelector('[data-next]');
-      if (!viewport || !dotsEl) return;
-
-      const slides = getSlides(viewport);
-      if (!slides.length) return;
-
-      // Build dots
-      dotsEl.innerHTML = "";
-      const dots = slides.map((_, idx) => {
-        const b = document.createElement("button");
-        b.type = "button";
-        b.className = "gDot";
-        b.setAttribute("aria-label", `انتقل للصورة ${idx + 1}`);
-        b.addEventListener("click", () => {
-          const behavior = prefersReducedMotion ? "auto" : "smooth";
-          scrollToSlide(viewport, slides[idx], behavior);
-        });
-        dotsEl.appendChild(b);
-        return b;
-      });
-
-      let activeIndex = 0;
-
-      function setActive(i) {
-        activeIndex = clamp(i, 0, slides.length - 1);
-        dots.forEach((d, di) => d.classList.toggle("isActive", di === activeIndex));
-        if (prevBtn) prevBtn.disabled = activeIndex <= 0;
-        if (nextBtn) nextBtn.disabled = activeIndex >= slides.length - 1;
-      }
-
-      // Track visibility to pick active slide
-      if ("IntersectionObserver" in window) {
-        const io = new IntersectionObserver(
-          (entries) => {
-            // choose the most visible slide
-            let best = { idx: activeIndex, ratio: 0 };
-            entries.forEach((e) => {
-              if (!e.isIntersecting) return;
-              const idx = slides.indexOf(e.target);
-              if (idx >= 0 && e.intersectionRatio >= best.ratio) {
-                best = { idx, ratio: e.intersectionRatio };
-              }
-            });
-            setActive(best.idx);
-          },
-          { root: viewport, threshold: [0.55, 0.7, 0.85] }
-        );
-        slides.forEach((s) => io.observe(s));
-      } else {
-        // Fallback: update on scroll (best-effort)
-        viewport.addEventListener(
-          "scroll",
-          () => {
-            const left = viewport.scrollLeft;
-            let bestIdx = 0;
-            let bestDist = Infinity;
-            slides.forEach((s, idx) => {
-              const dist = Math.abs(s.offsetLeft - left);
-              if (dist < bestDist) {
-                bestDist = dist;
-                bestIdx = idx;
-              }
-            });
-            setActive(bestIdx);
-          },
-          { passive: true }
-        );
-      }
-
-      // Buttons
-      if (prevBtn) {
-        prevBtn.addEventListener("click", () => {
-          const behavior = prefersReducedMotion ? "auto" : "smooth";
-          scrollToSlide(viewport, slides[activeIndex - 1], behavior);
-        });
-      }
-      if (nextBtn) {
-        nextBtn.addEventListener("click", () => {
-          const behavior = prefersReducedMotion ? "auto" : "smooth";
-          scrollToSlide(viewport, slides[activeIndex + 1], behavior);
-        });
-      }
-
-      // Wheel: map vertical wheel to horizontal scroll (Windows mouse friendly)
-      viewport.addEventListener(
-        "wheel",
-        (e) => {
-          if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-          viewport.scrollLeft += e.deltaY;
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
           e.preventDefault();
-        },
-        { passive: false }
-      );
-
-      // Drag to scroll (mouse/touch)
-      let isDown = false;
-      let startX = 0;
-      let startLeft = 0;
-
-      viewport.addEventListener("pointerdown", (e) => {
-        isDown = true;
-        viewport.setPointerCapture(e.pointerId);
-        startX = e.clientX;
-        startLeft = viewport.scrollLeft;
+          activate(btns[(idx - 1 + btns.length) % btns.length]);
+        } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          e.preventDefault();
+          activate(btns[(idx + 1) % btns.length]);
+        } else if (e.key === "Home") {
+          e.preventDefault();
+          activate(btns[0]);
+        } else if (e.key === "End") {
+          e.preventDefault();
+          activate(btns[btns.length - 1]);
+        }
       });
-
-      viewport.addEventListener("pointermove", (e) => {
-        if (!isDown) return;
-        const dx = e.clientX - startX;
-        viewport.scrollLeft = startLeft - dx;
-      });
-
-      function endDrag(e) {
-        if (!isDown) return;
-        isDown = false;
-        try { viewport.releasePointerCapture(e.pointerId); } catch (_) {}
-        // Snap to closest slide
-        const left = viewport.scrollLeft;
-        let bestIdx = 0;
-        let bestDist = Infinity;
-        slides.forEach((s, idx) => {
-          const dist = Math.abs(s.offsetLeft - left);
-          if (dist < bestDist) {
-            bestDist = dist;
-            bestIdx = idx;
-          }
-        });
-        const behavior = prefersReducedMotion ? "auto" : "smooth";
-        scrollToSlide(viewport, slides[bestIdx], behavior);
-      }
-
-      viewport.addEventListener("pointerup", endDrag);
-      viewport.addEventListener("pointercancel", endDrag);
-
-      // Keyboard support
-      viewport.addEventListener("keydown", (e) => {
-        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-        e.preventDefault();
-        const dir = e.key === "ArrowRight" ? 1 : -1;
-        const behavior = prefersReducedMotion ? "auto" : "smooth";
-        scrollToSlide(viewport, slides[activeIndex + dir], behavior);
-      });
-
-      // Initial state
-      setActive(0);
     });
   }
+  $$("[data-tabs]").forEach(initTabs);
 
-  function init() {
-    setWhatsAppLinks();
-    initMenu();
-    initAnchors();
-    initSwitches();
-    initGalleries();
+  // ===== Gallery (Pointer Events, أخف وأثبت) =====
+  function initGallery(root) {
+    const viewport = $(".galleryViewport", root);
+    const track = $(".galleryTrack", root);
+    const dotsWrap = $("[data-dots]", root);
+    const prevBtn = $("[data-prev]", root);
+    const nextBtn = $("[data-next]", root);
+    if (!viewport || !track || !dotsWrap) return;
 
-    const leadForm = document.getElementById("leadForm");
-    if (leadForm) leadForm.addEventListener("submit", handleLeadSubmit);
+    const slides = $$("img", track);
+    if (!slides.length) return;
+
+    dotsWrap.innerHTML = "";
+    const dots = slides.map((_, i) => {
+      const d = document.createElement("button");
+      d.type = "button";
+      d.className = "dot" + (i === 0 ? " active" : "");
+      d.setAttribute("aria-label", "انتقل للصورة " + (i + 1));
+      d.addEventListener("click", () => scrollToIndex(i));
+      dotsWrap.appendChild(d);
+      return d;
+    });
+
+    const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+
+    const slideCenterX = (i) => {
+      const el = slides[i];
+      return el.offsetLeft;
+    };
+
+    function scrollToIndex(i) {
+      i = clamp(i, 0, slides.length - 1);
+      viewport.scrollTo({ left: slideCenterX(i), behavior: "smooth" });
+    }
+
+    function setActiveByScroll() {
+      const center = viewport.scrollLeft + viewport.clientWidth / 2;
+      let best = 0;
+      let bestDist = Infinity;
+
+      slides.forEach((img, i) => {
+        const c = img.offsetLeft + img.offsetWidth / 2;
+        const dist = Math.abs(c - center);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+
+      dots.forEach((d, i) => d.classList.toggle("active", i === best));
+      viewport.dataset.index = String(best);
+    }
+
+    let raf = null;
+    viewport.addEventListener(
+      "scroll",
+      () => {
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(setActiveByScroll);
+      },
+      { passive: true }
+    );
+
+    if (prevBtn)
+      prevBtn.addEventListener("click", () => {
+        const i = parseInt(viewport.dataset.index || "0", 10) || 0;
+        scrollToIndex(i - 1);
+      });
+    if (nextBtn)
+      nextBtn.addEventListener("click", () => {
+        const i = parseInt(viewport.dataset.index || "0", 10) || 0;
+        scrollToIndex(i + 1);
+      });
+
+    // Pointer drag
+    let isDown = false;
+    let startX = 0;
+    let startLeft = 0;
+
+    function onPointerDown(e) {
+      isDown = true;
+      viewport.setPointerCapture(e.pointerId);
+      startX = e.clientX;
+      startLeft = viewport.scrollLeft;
+    }
+
+    function onPointerMove(e) {
+      if (!isDown) return;
+      const dx = e.clientX - startX;
+      viewport.scrollLeft = startLeft - dx;
+    }
+
+    function onPointerUp() {
+      isDown = false;
+    }
+
+    viewport.addEventListener("pointerdown", onPointerDown);
+    viewport.addEventListener("pointermove", onPointerMove);
+    viewport.addEventListener("pointerup", onPointerUp);
+    viewport.addEventListener("pointercancel", onPointerUp);
+
+    viewport.dataset.index = "0";
+    setActiveByScroll();
+
+    // Auto Play
+    let autoPlayInterval;
+    const startAutoPlay = () => {
+      stopAutoPlay();
+      autoPlayInterval = setInterval(() => {
+        const currentIndex = parseInt(viewport.dataset.index || "0", 10) || 0;
+        const nextIndex = (currentIndex + 1) % slides.length;
+        scrollToIndex(nextIndex);
+      }, 4000); // Change slide every 4 seconds
+    };
+
+    const stopAutoPlay = () => {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+    };
+
+    // Start auto play initially
+    startAutoPlay();
+
+    // Pause on interaction
+    viewport.addEventListener("pointerdown", stopAutoPlay);
+    viewport.addEventListener("touchstart", stopAutoPlay, { passive: true });
+    if (prevBtn) prevBtn.addEventListener("click", stopAutoPlay);
+    if (nextBtn) nextBtn.addEventListener("click", stopAutoPlay);
+    
+    // Resume on mouse leave (optional, but good for UX)
+    root.addEventListener("mouseleave", startAutoPlay);
+    root.addEventListener("mouseenter", stopAutoPlay);
+  }
+  $$("[data-gallery]").forEach(initGallery);
+
+  // ===== Lead Form -> WhatsApp =====
+  const form = $("#leadForm");
+  const msg = $("#formMsg");
+
+  function normalizePhone(p) {
+    return String(p || "")
+      .replace(/[^\d+]/g, "")
+      .trim()
+      .slice(0, 30);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
+  function selectedProducts() {
+    if (!form) return [];
+    const boxes = $$('input[name="product"]', form).filter((x) => x.checked);
+    const vals = boxes.map((x) => x.value);
+    const map = { reports: "منصة التقارير والتذاكر", display: "شاشة العرض الذكية" };
+    return vals.map((v) => map[v] || v);
+  }
+
+  function buildLeadMessage(payload) {
+    const lines = [];
+    lines.push(cfg.whatsappPrefill || "السلام عليكم، أرغب بعرض سعر/تجربة.");
+    lines.push("");
+    lines.push("— بيانات المدرسة —");
+    lines.push("المدرسة: " + payload.school);
+    lines.push("المدينة: " + payload.city);
+    lines.push("اسم المسؤول: " + payload.name);
+    lines.push("الجوال: " + payload.phone);
+    lines.push("");
+    lines.push("— المطلوب —");
+    lines.push("المنتج: " + (payload.products.length ? payload.products.join(" + ") : "غير محدد"));
+    if (payload.screens) lines.push("عدد الشاشات: " + payload.screens);
+    if (payload.notes) {
+      lines.push("");
+      lines.push("ملاحظات:");
+      lines.push(payload.notes);
+    }
+    return lines.join("\n");
+  }
+
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const payload = {
+        school: ($("#schoolName")?.value || "").trim().slice(0, 120),
+        city: ($("#city")?.value || "").trim().slice(0, 80),
+        name: ($("#contactName")?.value || "").trim().slice(0, 80),
+        phone: normalizePhone($("#phone")?.value || ""),
+        products: selectedProducts(),
+        screens: ($("#screens")?.value || "").trim().slice(0, 10),
+        notes: ($("#notes")?.value || "").trim().slice(0, 500),
+      };
+
+      if (!payload.school || !payload.city || !payload.name || !payload.phone) {
+        if (msg) msg.textContent = "فضلاً أكمل الحقول المطلوبة: اسم المدرسة، المدينة، اسم المسؤول، رقم الجوال.";
+        showToast("فضلاً أكمل الحقول المطلوبة.");
+        return;
+      }
+
+      if (!waNumber) {
+        if (msg) msg.textContent = "زر واتساب غير مفعل حالياً. ضع رقم واتساب في إعدادات الصفحة.";
+        showToast("زر واتساب غير مفعل. حدّث رقم واتساب في إعدادات الصفحة.");
+        return;
+      }
+
+      const text = buildLeadMessage(payload);
+      const url = waUrl(text);
+
+      if (waQuick) {
+        waQuick.href = url;
+        waQuick.hidden = false;
+      }
+
+      if (msg) msg.textContent = "تم تجهيز الرسالة… سيتم فتح واتساب الآن.";
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
   }
 })();
