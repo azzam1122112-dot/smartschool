@@ -5,35 +5,91 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#F8FAFC" />
-  <meta name="color-scheme" content="light" />
-
+  <meta name="color-scheme" content="light dark" />
+  
   <title>أنظمة المدارس الذكية | منصة التقارير والتذاكر وشاشة العرض الذكية</title>
   <meta
     name="description"
     content="حلّان مستقلان للمدارس العربية: منصة التقارير والتذاكر (مرفقات صور فقط) + شاشة عرض ذكية مناسبة TV/4K بواجهة عربية RTL."
   />
 
-  <!-- (اختياري) خط عربي — احذفه إذا تبي الصفحة بدون أي CDNs -->
+  <!-- Loader CSS -->
+  <style>
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    
+    .loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .loader-content {
+      text-align: center;
+    }
+    
+    .loader-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(102, 126, 234, 0.2);
+      border-top-color: #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+
+  <!-- خط عربي حديث -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="./assets/css/style.css?v=20251220_2" />
+  <link rel="stylesheet" href="./assets/css/style.css?v=20251221_1" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏫</text></svg>" />
 
   <script>
-    // اترك الرقم فارغًا لتعطيل زر واتساب تلقائيًا
     window.SMART_SCHOOLS = {
       brand: "أنظمة المدارس الذكية",
-      whatsappNumber: "966537720207", // مثال: "9665XXXXXXXX"
-      whatsappPrefill: "السلام عليكم، أرغب بتجربة/عرض سعر لأنظمة المدارس الذكية."
+      whatsappNumber: "966537720207",
+      whatsappPrefill: "السلام عليكم، أرغب بتجربة/عرض سعر لأنظمة المدارس الذكية.",
+      features: {
+        dynamicAnimations: true,
+        loader: true,
+        parallax: true,
+        counters: true
+      }
     };
   </script>
 </head>
 
 <body>
+  <!-- Loader -->
+  <div class="loader">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <div style="color: #fff; font-weight: 600; margin-top: 10px;">
+        جاري تحميل الأنظمة الذكية...
+      </div>
+    </div>
+  </div>
+
   <a class="skip" href="#main">تخطي إلى المحتوى</a>
 
   <!-- Header -->
@@ -41,7 +97,7 @@
     <div class="container headerWrap">
       <div class="nav glass">
         <a class="brand" href="#hero" aria-label="العودة للأعلى">
-          <span class="logo" aria-hidden="true">S</span>
+          <span class="logo" aria-hidden="true">🏫</span>
           <span class="brandText">
             <span class="brandName">أنظمة المدارس الذكية</span>
             <span class="brandSub">نظامان مستقلان — اختر ما يناسب مدرستك</span>
@@ -50,17 +106,14 @@
 
         <nav class="links" aria-label="التنقل">
           <a href="#systems">الأنظمة</a>
+          <a href="#features">المميزات</a>
           <a href="#reports-details">التقارير والتذاكر</a>
           <a href="#display-details">شاشة العرض</a>
           <a href="#pricing">الأسعار</a>
-          <a href="#faq">الأسئلة</a>
           <a href="#contact">تواصل</a>
         </nav>
 
         <div class="actions">
-          <a class="btn primary" href="#contact">اطلب عرض سعر ←</a>
-          <a class="btn ghost" id="waTop" href="#" target="_blank" rel="noopener" hidden>واتساب</a>
-
           <button
             class="iconBtn"
             type="button"
@@ -76,13 +129,16 @@
       <!-- Mobile Menu -->
       <div id="mobileMenu" class="mobileMenu glass" data-menu hidden>
         <a href="#systems">الأنظمة</a>
+        <a href="#features">المميزات</a>
         <a href="#reports-details">التقارير والتذاكر</a>
         <a href="#display-details">شاشة العرض</a>
         <a href="#pricing">الأسعار</a>
-        <a href="#faq">الأسئلة</a>
         <a href="#contact">تواصل</a>
-        <a class="btn primary menuCta" href="#contact">اطلب عرض سعر ←</a>
-        <a class="btn ghost" id="waMenu" href="#" target="_blank" rel="noopener" hidden>واتساب</a>
+        <a class="btn primary menuCta" href="#contact">
+          <span class="btnTextLong">اطلب تجربة 10 أيام مجانية ←</span>
+          <span class="btnTextShort">تجربة مجانية ←</span>
+        </a>
+        <a class="btn ghost quoteBtn" href="#contact">اطلب عرض سعر</a>
       </div>
     </div>
   </header>
@@ -90,17 +146,26 @@
   <main id="main">
     <!-- Hero -->
     <section id="hero" class="section hero">
+      <div class="hero-background">
+        <div class="floating-shapes">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+        </div>
+      </div>
+      
       <div class="container heroGrid">
         <div class="heroCopy">
           <div class="badges">
             <span class="badge">واجهة عربية RTL</span>
             <span class="badge accent">جاهز للإطلاق</span>
             <span class="badge neutral">مناسب TV/4K</span>
+            <span class="badge">ذكي وتفاعلي</span>
           </div>
 
           <h1 class="headline">
-            نقلة عملية في إدارة المدرسة
-            <span class="hl">بالتوثيق</span> و<span class="hl2">العرض اليومي</span>
+            نقلة عملية في <span class="hl">إدارة المدرسة</span>
+            <span class="hl2">بالتوثيق والعرض اليومي</span>
           </h1>
 
           <p class="subhead">
@@ -112,31 +177,64 @@
 
           <div class="ctaRow">
             <a class="btn primary" href="#systems">استعرض الأنظمة ←</a>
-            <a class="btn ghost" href="#pricing">الأسعار</a>
-            <a class="btn link" href="#faq">هل لديك أسئلة؟</a>
+            <a class="btn ghost" href="#contact">اطلب تجربة مجانية</a>
+            <a class="btn link" href="#pricing">الأسعار</a>
           </div>
 
-          <div class="trustRow" role="list" aria-label="مؤشرات">
-            <div class="trust" role="listitem">
-              <div class="tTitle">تشغيل سريع</div>
-              <div class="tValue">خلال دقائق</div>
-            </div>
-            <div class="trust" role="listitem">
-              <div class="tTitle">المرفقات</div>
-              <div class="tValue">صور فقط</div>
-            </div>
-            <div class="trust" role="listitem">
-              <div class="tTitle">للشاشات الكبيرة</div>
-              <div class="tValue">TV/4K</div>
-            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section features">
+      <div class="container">
+        <div class="sectionHead">
+          <div>
+            <div class="eyebrow">مميزات فريدة</div>
+            <h2>تكنولوجيا متطورة لتعليم أفضل</h2>
+            <p class="muted">نقدم حلولاً ذكية تعمل على تحسين تجربة التعليم والإدارة</p>
+          </div>
+          <div class="sectionActions">
+            <a class="btn primary" href="#contact">جرب النظام ←</a>
           </div>
         </div>
 
-        <div class="heroVisual" aria-label="معاينة">
-          <div class="heroMedia">
-            <!-- عدّل المسار حسب مجلدك -->
-            <img src="./assets/imge/display/11.png" alt="معاينة شاشة العرض الذكية" loading="lazy" draggable="false">
-          </div>
+        <div class="features-grid">
+          <article class="feature-card glass animate-on-scroll">
+            <div class="feature-icon">⚡</div>
+            <h3>سرعة فائقة</h3>
+            <p class="muted">تصميم خفيف وسريع الاستجابة يضمن تجربة مستخدم سلسة</p>
+          </article>
+          
+          <article class="feature-card glass animate-on-scroll">
+            <div class="feature-icon">🔒</div>
+            <h3>أمان متقدم</h3>
+            <p class="muted">نظام حماية متعدد الطبقات لحماية بيانات مدرستك</p>
+          </article>
+          
+          <article class="feature-card glass animate-on-scroll">
+            <div class="feature-icon">🔄</div>
+            <h3>تحديثات مستمرة</h3>
+            <p class="muted">تحديثات دورية تضيف مزايا جديدة وتحسن الأداء</p>
+          </article>
+          
+          <article class="feature-card glass animate-on-scroll">
+            <div class="feature-icon">📱</div>
+            <h3>متعدد الأجهزة</h3>
+            <p class="muted">يعمل على جميع الأجهزة والأنظمة بدون مشاكل</p>
+          </article>
+          
+          <article class="feature-card glass animate-on-scroll">
+            <div class="feature-icon">🎨</div>
+            <h3>تصميم حديث</h3>
+            <p class="muted">واجهات مستخدم حديثة ومتطورة </p>
+          </article>
+          
+          <article class="feature-card glass animate-on-scroll">
+            <div class="feature-icon">👥</div>
+            <h3>دعم فني</h3>
+            <p class="muted">فريق دعم فني متخصص متاح على مدار الساعة</p>
+          </article>
         </div>
       </div>
     </section>
@@ -158,10 +256,10 @@
 
         <div class="cards2">
           <!-- Reports -->
-          <article class="card glass">
+          <article class="card glass system-card animate-on-scroll">
             <div class="cardTop">
               <div class="cardTitle">منصة التقارير والتذاكر</div>
-              <span class="tag">Reports</span>
+              <span class="tag">📑 Reports</span>
             </div>
 
             <p class="muted">
@@ -174,6 +272,7 @@
               <li>تذاكر/طلبات بحالات وإسناد وتعليقات</li>
               <li>صلاحيات دقيقة حسب الدور</li>
               <li>طباعة PDF وأرشفة منظمة</li>
+              <li>واجهة عربية متكاملة</li>
             </ul>
 
             <div class="cardCtas">
@@ -183,10 +282,10 @@
           </article>
 
           <!-- Display -->
-          <article class="card glass">
+          <article class="card glass system-card animate-on-scroll">
             <div class="cardTop">
               <div class="cardTitle">شاشة العرض الذكية للمدارس</div>
-              <span class="tag">Display</span>
+              <span class="tag">🖥️ Display</span>
             </div>
 
             <p class="muted">
@@ -199,6 +298,7 @@
               <li>واجهة كبيرة مناسبة للشاشات</li>
               <li>واجهة عربية RTL</li>
               <li>تحديث تلقائي حسب إعدادات المدرسة</li>
+              <li>دعم متعدد الشاشات</li>
             </ul>
 
             <div class="cardCtas">
@@ -211,7 +311,7 @@
     </section>
 
     <!-- Reports Details -->
-    <section id="reports-details" class="section">
+    <section id="reports-details" class="section animate-on-scroll">
       <div class="container">
         <div class="sectionHead">
           <div>
@@ -243,17 +343,17 @@
         <div class="divider"></div>
 
         <div class="grid3">
-          <div class="glass step">
+          <div class="glass step animate-on-scroll">
             <div class="stepNo">1</div>
             <div class="stepTitle">تهيئة المدرسة</div>
             <p class="muted">إضافة الأقسام، تحديد الأدوار والصلاحيات، إنشاء حسابات المستخدمين.</p>
           </div>
-          <div class="glass step">
+          <div class="glass step animate-on-scroll">
             <div class="stepNo">2</div>
             <div class="stepTitle">التوثيق والمتابعة</div>
             <p class="muted">المعلم يرفع تقريره بالصور، والطلبات تُفتح كتذاكر بحالة ومسؤول وملاحظات.</p>
           </div>
-          <div class="glass step">
+          <div class="glass step animate-on-scroll">
             <div class="stepNo">3</div>
             <div class="stepTitle">الأرشفة والطباعة</div>
             <p class="muted">إغلاق التذاكر بعد التنفيذ، وطباعة تقارير محددة أو كاملة بصيغة PDF.</p>
@@ -292,7 +392,7 @@
               </tr>
               <tr>
                 <td><b>المساءلة</b></td>
-                <td>صعب تعرف “مين مسؤول” و”إيش صار”</td>
+                <td>صعب تعرف "مين مسؤول" و"إيش صار"</td>
                 <td>مسؤول محدد + تاريخ + ملاحظات + حالة واضحة</td>
               </tr>
               <tr>
@@ -319,7 +419,7 @@
     </section>
 
     <!-- Display Details -->
-    <section id="display-details" class="section">
+    <section id="display-details" class="section animate-on-scroll">
       <div class="container">
         <div class="sectionHead">
           <div>
@@ -351,17 +451,17 @@
         <div class="divider"></div>
 
         <div class="grid3">
-          <div class="glass step">
+          <div class="glass step animate-on-scroll">
             <div class="stepNo">1</div>
             <div class="stepTitle">إنشاء شاشة</div>
             <p class="muted">من لوحة التحكم يتم إنشاء شاشة وربطها بمدرستك عبر رابط/رمز بسيط.</p>
           </div>
-          <div class="glass step">
+          <div class="glass step animate-on-scroll">
             <div class="stepNo">2</div>
             <div class="stepTitle">ضبط العرض</div>
             <p class="muted">تحديد العناصر المعروضة (تنبيهات، جدول، وقت/تاريخ…) ونمط الواجهة.</p>
           </div>
-          <div class="glass step">
+          <div class="glass step animate-on-scroll">
             <div class="stepNo">3</div>
             <div class="stepTitle">تشغيل مستمر</div>
             <p class="muted">فتح الشاشة على TV متصل بالإنترنت وتشغيل العرض اليومي بشكل ثابت.</p>
@@ -427,7 +527,7 @@
     </section>
 
     <!-- Screenshots -->
-    <section id="screens" class="section screens">
+    <section id="screens" class="section screens animate-on-scroll">
       <div class="container">
         <div class="sectionHead">
           <div>
@@ -495,8 +595,10 @@
       </div>
     </section>
 
+    <!-- Testimonials -->
+
     <!-- Pricing -->
-    <section id="pricing" class="section">
+    <section id="pricing" class="section animate-on-scroll">
       <div class="container">
         <div class="sectionHead">
           <div>
@@ -516,7 +618,7 @@
         </div>
 
         <!-- Reports Pricing -->
-        <div id="pricing-reports" class="glass pricingBlock">
+        <div id="pricing-reports" class="glass pricingBlock animate-on-scroll">
           <div class="sectionHead" style="margin:0 0 8px">
             <div>
               <div class="eyebrow">📑 منصة التذاكر والتقارير</div>
@@ -559,7 +661,7 @@
                 </div>
               </article>
 
-              <article class="glass priceCard">
+              <article class="glass priceCard featured">
                 <div class="priceTop">
                   <div>
                     <div class="miniTitle">Standard ⭐</div>
@@ -635,7 +737,7 @@
                 </div>
               </article>
 
-              <article class="glass priceCard">
+              <article class="glass priceCard featured">
                 <div class="priceTop">
                   <div>
                     <div class="miniTitle">Standard ⭐</div>
@@ -689,7 +791,7 @@
         <div class="divider"></div>
 
         <!-- Display Pricing -->
-        <div id="pricing-display" class="glass pricingBlock">
+        <div id="pricing-display" class="glass pricingBlock animate-on-scroll">
           <div class="sectionHead" style="margin:0 0 8px">
             <div>
               <div class="eyebrow">🖥️ منصة شاشة العرض الذكية</div>
@@ -732,7 +834,7 @@
                 </div>
               </article>
 
-              <article class="glass priceCard">
+              <article class="glass priceCard featured">
                 <div class="priceTop">
                   <div>
                     <div class="miniTitle">متقدمة ⭐</div>
@@ -808,7 +910,7 @@
                 </div>
               </article>
 
-              <article class="glass priceCard">
+              <article class="glass priceCard featured">
                 <div class="priceTop">
                   <div>
                     <div class="miniTitle">متقدمة ⭐</div>
@@ -890,7 +992,7 @@
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="section">
+    <section id="faq" class="section animate-on-scroll">
       <div class="container">
         <div class="sectionHead">
           <div>
@@ -901,46 +1003,58 @@
         </div>
 
         <div class="faqGrid">
-          <details class="glass faq">
+          <details class="glass faq animate-on-scroll">
             <summary>هل منصة التقارير والتذاكر تدعم مرفقات غير الصور؟</summary>
             <p class="muted">حاليًا المرفقات صور فقط لتبسيط الاستخدام داخل المدرسة وتسريع التوثيق.</p>
           </details>
 
-          <details class="glass faq">
+          <details class="glass faq animate-on-scroll">
             <summary>هل شاشة العرض تعمل على TV/4K؟</summary>
             <p class="muted">نعم، تم تصميم الواجهة لتكون كبيرة وواضحة ومناسبة للشاشات الكبيرة.</p>
           </details>
 
-          <details class="glass faq">
+          <details class="glass faq animate-on-scroll">
             <summary>هل يمكن الاشتراك في نظام واحد فقط؟</summary>
             <p class="muted">نعم، كل نظام مستقل ويمكن الاشتراك فيه منفردًا. ويمكن أيضًا طلب عرض خاص للاشتراك في النظامين معًا.</p>
           </details>
 
-          <details class="glass faq">
+          <details class="glass faq animate-on-scroll">
             <summary>كيف يتم طلب التسعير أو التجربة؟</summary>
             <p class="muted">املأ نموذج التواصل وحدد النظام المطلوب (وعدد الشاشات إن وجد) وسنرسل عرضًا مناسبًا.</p>
+          </details>
+          
+          <details class="glass faq animate-on-scroll">
+            <summary>هل هناك تجربة مجانية؟</summary>
+            <p class="muted">نعم، نوفر تجربة مجانية لمدة 10 أيام لتجربة النظام قبل الاشتراك.</p>
+          </details>
+          
+          <details class="glass faq animate-on-scroll">
+            <summary>هل النظام يدعم اللغة العربية فقط؟</summary>
+            <p class="muted">نعم، النظام مصمم خصيصًا للمدارس العربية ويدعم اللغة العربية فقط.</p>
           </details>
         </div>
       </div>
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="section">
+    <section id="contact" class="section animate-on-scroll">
       <div class="container leadGrid">
         <div class="glass leadCard">
           <div class="eyebrow">تواصل</div>
-          <h2 style="margin:6px 0 0">اطلب عرض سعر / تجربة</h2>
-          <p class="muted">املأ البيانات وسيتم تجهيز عرض مناسب لمدرستك.</p>
+          <h2 style="margin:6px 0 0">اطلب تجربة 10 أيام مجانية / عرض سعر</h2>
+          <p class="muted">املأ البيانات لطلب تجربة مجانية لمدة 10 أيام أو تجهيز عرض سعر مناسب لمدرستك.</p>
 
           <form id="leadForm" class="form" novalidate>
             <div class="row2">
               <div class="field">
                 <label for="schoolName">اسم المدرسة *</label>
                 <input id="schoolName" name="school" required maxlength="120" placeholder="مثال: مدرسة الأمل" />
+                <div class="field-error" hidden></div>
               </div>
               <div class="field">
                 <label for="city">المدينة *</label>
                 <input id="city" name="city" required maxlength="80" placeholder="مثال: الرياض" />
+                <div class="field-error" hidden></div>
               </div>
             </div>
 
@@ -948,10 +1062,12 @@
               <div class="field">
                 <label for="contactName">اسم المسؤول *</label>
                 <input id="contactName" name="name" required maxlength="80" placeholder="الاسم" />
+                <div class="field-error" hidden></div>
               </div>
               <div class="field">
                 <label for="phone">رقم الجوال *</label>
                 <input id="phone" name="phone" required inputmode="tel" maxlength="30" placeholder="05xxxxxxxx" />
+                <div class="field-error" hidden></div>
               </div>
             </div>
 
@@ -963,9 +1079,9 @@
               </div>
 
               <div class="field">
-                <label for="screens">عدد الشاشات (اختياري)</label>
+                <label for="screens">عدد الشاشات / المعلمين(اختياري)</label>
                 <input id="screens" name="screens" inputmode="numeric" maxlength="10" placeholder="مثال: 2" />
-                <div class="hint muted">اتركه فارغًا إذا لا توجد شاشات.</div>
+                <div class="hint muted">اتركه فارغًا إذا لا توجد شاشات أو معلمين.</div>
               </div>
             </div>
 
@@ -1027,8 +1143,9 @@
           </div>
           <div class="footLinks">
             <a href="#systems">الأنظمة</a>
+            <a href="#features">المميزات</a>
             <a href="#pricing">الأسعار</a>
-            <a href="#contact">تواصل</a>
+             <a href="#contact">تواصل</a>
             <a href="#hero" data-top>أعلى ↑</a>
           </div>
         </div>
@@ -1038,6 +1155,6 @@
     <div class="toast" data-toast hidden></div>
   </main>
 
-  <script src="./assets/js/app.js?v=20251220_2" defer></script>
+  <script src="./assets/js/app.js?v=20251221_1" defer></script>
 </body>
 </html>
