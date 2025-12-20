@@ -698,6 +698,44 @@
     });
   }
 
+  // ===== Extra Screens Calculator =====
+  function initExtraScreensCalculator() {
+    const input = $('#extraScreensCalc');
+    const result = $('#extraScreensResult');
+
+    if (!input || !result) return;
+
+    const MONTHLY_PRICE = 55; // ريال لكل شاشة إضافية شهريًا
+
+    const format = (n) => {
+      if (Number.isNaN(n)) return '';
+      try {
+        return n.toLocaleString('ar-SA');
+      } catch (e) {
+        return n.toLocaleString();
+      }
+    };
+
+    function update() {
+      const raw = (input.value || '').replace(/[^0-9]/g, '');
+      const count = parseInt(raw, 10);
+
+      if (!count || count <= 0) {
+        result.textContent = 'أدخل عدد الشاشات الإضافية لحساب التكلفة التقريبية.';
+        return;
+      }
+
+      const monthly = count * MONTHLY_PRICE;
+      const sixMonths = monthly * 6;
+      const twelveMonths = monthly * 12;
+
+      result.textContent = `التكلفة الشهرية التقريبية: ${format(monthly)} ريال (عدد ${format(count)} شاشة). لمدة 6 أشهر: ${format(sixMonths)} ريال، لمدة 12 شهر: ${format(twelveMonths)} ريال.`;
+    }
+
+    input.addEventListener('input', update);
+    update();
+  }
+
   // ===== Initialize Everything =====
   function init() {
     initLoader();
@@ -710,6 +748,7 @@
     initCounters();
     initScrollAnimations();
     initContactForm();
+    initExtraScreensCalculator();
     initNetworkStatus();
     initSmoothScroll();
     initBackToTop();
@@ -743,6 +782,7 @@
       initCounters,
       initScrollAnimations,
       initContactForm,
+      initExtraScreensCalculator,
       initNetworkStatus,
       initSmoothScroll,
       initBackToTop
