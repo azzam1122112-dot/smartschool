@@ -1,0 +1,13 @@
+{
+  "name": "smart-schools-landing",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Smart Schools landing page (static) served via a tiny Node server.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
