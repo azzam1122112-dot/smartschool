@@ -11,14 +11,17 @@
   <title>أنظمة المدارس الذكية | منصة التقارير والتذاكر وشاشة العرض الذكية</title>
   <meta
     name="description"
-    content="حلّان مستقلان للمدارس العربية: منصة التقارير والتذاكر (مرفقات صور فقط) + شاشة عرض ذكية مناسبة TV/4K بواجهة عربية RTL."
+    content="حلّان مستقلان للمدارس العربية: منصة التقارير والتذاكر (مرفقات صور فقط + مشاركة آمنة للتقارير وملفات الإنجاز بروابط مؤقتة) + شاشة عرض ذكية مناسبة TV/4K بواجهة عربية RTL."
   />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ar_SA" />
   <meta property="og:title" content="أنظمة المدارس الذكية" />
-  <meta property="og:description" content="منصة التقارير والتذاكر + شاشة العرض الذكية (TV/4K) — أنظمة عربية RTL جاهزة للإطلاق." />
+  <meta
+    property="og:description"
+    content="منصة التقارير والتذاكر مع مشاركة آمنة للتقارير وملفات الإنجاز بروابط مؤقتة + شاشة العرض الذكية (TV/4K) — أنظمة عربية RTL جاهزة للإطلاق."
+  />
 
   <!-- Loader (خفيف + يحترم reduce motion) -->
   <style>
@@ -35,7 +38,7 @@
       transition: opacity .45s ease, visibility .45s ease;
     }
     .loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .loader-content { text-align: center; }
+    .loader-content { text-align: center; padding-inline: 1.5rem; }
     .loader-spinner {
       width: 72px; height: 72px;
       border-radius: 999px;
@@ -50,6 +53,27 @@
     @media (prefers-reduced-motion: reduce) {
       .loader-spinner { animation: none; }
     }
+    .skip {
+      position: absolute;
+      top: 8px;
+      inset-inline-start: 8px;
+      padding: .4rem .8rem;
+      background: #0b1120;
+      color: #e5e7eb;
+      border-radius: 999px;
+      font-size: .75rem;
+      text-decoration: none;
+      transform: translateY(-200%);
+      transition: transform .2s ease, opacity .2s ease;
+      opacity: 0;
+      z-index: 50;
+    }
+    .skip:focus-visible {
+      transform: translateY(0);
+      opacity: 1;
+      outline: 2px solid #4f46e5;
+      outline-offset: 2px;
+    }
   </style>
 
   <!-- خط عربي حديث -->
@@ -61,17 +85,21 @@
   />
 
   <!-- تحميل CSS -->
-  <link rel="preload" href="./assets/css/style.css?v=20251230_1" as="style" />
-  <link rel="stylesheet" href="./assets/css/style.css?v=20251230_1" />
+  <link rel="preload" href="./assets/css/style.css?v=20251230_2" as="style" />
+  <link rel="stylesheet" href="./assets/css/style.css?v=20251230_2" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏫</text></svg>" />
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏫</text></svg>"
+  />
 
   <script>
     window.SMART_SCHOOLS = {
       brand: "أنظمة المدارس الذكية",
       whatsappNumber: "966537720207",
-      whatsappPrefill: "السلام عليكم، أرغب بتجربة/عرض سعر لأنظمة المدارس الذكية.",
+      whatsappPrefill: "السلام عليكم، أرغب بتجربة/عرض سعر لأنظمة المدارس الذكية (منصة التقارير والتذاكر أو شاشة العرض الذكية).",
       features: {
         dynamicAnimations: true,
         loader: true,
@@ -164,9 +192,9 @@
         <div class="heroCopy">
           <div class="badges">
             <span class="badge">واجهة عربية RTL</span>
-            <span class="badge accent">جاهز للإطلاق</span>
+            <span class="badge accent">جاهز للاستخدام فورًا</span>
             <span class="badge neutral">مناسب TV/4K</span>
-            <span class="badge">ذكي وتفاعلي</span>
+            <span class="badge">روابط مشاركة آمنة</span>
           </div>
 
           <h1 class="headline">
@@ -176,9 +204,9 @@
 
           <p class="subhead">
             اختر ما تحتاجه:
-            <b>منصة التقارير والتذاكر</b> لتنظيم التوثيق والمتابعة داخل المدرسة (مرفقات <b>صور فقط</b>)،
-            أو <b>شاشة العرض الذكية</b> لعرض معلومات اليوم على شاشات المدرسة بشكل واضح.
-            ويمكن الاشتراك في أي نظام منفردًا أو الاثنين معًا.
+            <b>منصة التقارير والتذاكر</b> لتنظيم التوثيق والمتابعة داخل المدرسة (مرفقات <b>صور فقط</b>)
+            مع <b>مشاركة آمنة للتقارير وملفات الإنجاز</b> عبر روابط مؤقتة تنتهي تلقائيًا بعد عدد أيام تحددها الإدارة،
+            أو <b>شاشة العرض الذكية</b> لعرض معلومات اليوم على شاشات المدرسة بشكل واضح. ويمكن الاشتراك في أي نظام منفردًا أو في الاثنين معًا.
           </p>
 
           <div class="ctaRow">
@@ -186,6 +214,10 @@
             <a class="btn ghost" href="#videos">شاهد الفيديوهات 🎥</a>
             <a class="btn ghost" href="#contact">اطلب تجربة مجانية</a>
             <a class="btn link" href="#pricing">الأسعار</a>
+          </div>
+
+          <div class="heroHint muted">
+            مناسب لمدارس تبحث عن نظام عملي وواضح، بدون تعقيد تقني، مع ضمان خصوصية التقارير وملفات الإنجاز.
           </div>
         </div>
       </div>
@@ -197,8 +229,8 @@
         <div class="sectionHead">
           <div>
             <div class="eyebrow">مميزات فريدة</div>
-            <h2>تكنولوجيا متطورة لتعليم أفضل</h2>
-            <p class="muted">حلول ذكية تُحسّن تجربة التعليم والإدارة داخل المدرسة.</p>
+            <h2>تكنولوجيا متطورة لتعليم أفضل وإدارة أوضح</h2>
+            <p class="muted">حلول ذكية تُحسّن تجربة التعليم والإدارة داخل المدرسة، مع تركيز على البساطة والأمان.</p>
           </div>
           <div class="sectionActions">
             <a class="btn primary" href="#contact">جرب النظام ←</a>
@@ -208,38 +240,38 @@
         <div class="features-grid">
           <article class="feature-card glass animate-on-scroll">
             <div class="feature-icon">⚡</div>
-            <h3>سرعة فائقة</h3>
-            <p class="muted">تصميم خفيف وسريع الاستجابة يضمن تجربة سلسة.</p>
+            <h3>سرعة واستجابة عالية</h3>
+            <p class="muted">تصميم خفيف وسريع الاستجابة، مُهيأ للجوال أولًا ثم الأجهزة الأخرى.</p>
           </article>
 
           <article class="feature-card glass animate-on-scroll">
             <div class="feature-icon">🔒</div>
-            <h3>أمان متقدم</h3>
-            <p class="muted">حماية متعددة الطبقات لحماية بيانات المدرسة.</p>
+            <h3>أمان وخصوصية</h3>
+            <p class="muted">صلاحيات واضحة، وروابط مشاركة مؤقتة تنتهي تلقائيًا لحماية بيانات المدرسة.</p>
           </article>
 
           <article class="feature-card glass animate-on-scroll">
             <div class="feature-icon">🔄</div>
             <h3>تحديثات مستمرة</h3>
-            <p class="muted">تحسينات دورية ومزايا جديدة بشكل منتظم.</p>
+            <p class="muted">تحسينات دورية ومزايا جديدة مبنية على تجربة المدارس الفعلية.</p>
           </article>
 
           <article class="feature-card glass animate-on-scroll">
             <div class="feature-icon">📱</div>
             <h3>متعدد الأجهزة</h3>
-            <p class="muted">يعمل بسلاسة على الجوال والكمبيوتر والشاشات الكبيرة.</p>
+            <p class="muted">يعمل بسلاسة على الجوال والكمبيوتر والشاشات الكبيرة داخل المدرسة.</p>
           </article>
 
           <article class="feature-card glass animate-on-scroll">
             <div class="feature-icon">🎨</div>
-            <h3>تصميم حديث</h3>
-            <p class="muted">واجهة عربية RTL جميلة وواضحة وقابلة للتخصيص.</p>
+            <h3>تصميم عربي حديث</h3>
+            <p class="muted">واجهة عربية RTL جميلة وواضحة ومناسبة لمديري ومديرات المدارس.</p>
           </article>
 
           <article class="feature-card glass animate-on-scroll">
             <div class="feature-icon">👥</div>
-            <h3>دعم فني</h3>
-            <p class="muted">مساندة تقنية سريعة لمساعدتك في الإعداد والتشغيل.</p>
+            <h3>مرافقة في الإعداد</h3>
+            <p class="muted">مساندة تقنية سريعة لمساعدتك في الإعداد وتشغيل الأنظمة خطوة بخطوة.</p>
           </article>
         </div>
       </div>
@@ -270,15 +302,17 @@
 
             <p class="muted">
               نظام لتوثيق التقارير المدرسية وإدارة التذاكر/الطلبات بحالات واضحة وإسناد ومسار متابعة.
-              <b>المرفقات: صور فقط</b> لتسريع التوثيق وتقليل التعقيد داخل المدرسة.
+              <b>المرفقات: صور فقط</b> لتسريع التوثيق داخل المدرسة،
+              مع <b>مشاركة آمنة للتقارير وملفات الإنجاز عبر روابط مؤقتة</b> تنتهي تلقائيًا بعد عدد من الأيام.
             </p>
 
             <ul class="bullets">
-              <li>تقارير منظمة بالصور</li>
-              <li>تذاكر/طلبات بحالات وإسناد وتعليقات</li>
-              <li>صلاحيات دقيقة حسب الدور</li>
-              <li>طباعة PDF وأرشفة منظمة</li>
-              <li>واجهة عربية متكاملة</li>
+              <li>تقارير منظمة بالصور مع حقول واضحة</li>
+              <li>تذاكر/طلبات بحالات وإسناد وتعليقات داخلية</li>
+              <li>صلاحيات دقيقة حسب الدور داخل المدرسة</li>
+              <li>روابط مشاركة مؤقتة للتقارير وملفات الإنجاز</li>
+              <li>طباعة PDF وأرشفة منظمة للتقارير</li>
+              <li>واجهة عربية متكاملة تناسب فرق العمل</li>
             </ul>
 
             <div class="cardCtas">
@@ -300,11 +334,11 @@
             </p>
 
             <ul class="bullets">
-              <li>عرض معلومات اليوم والتنبيهات بشكل واضح</li>
-              <li>واجهة كبيرة مناسبة للشاشات</li>
-              <li>واجهة عربية RTL</li>
+              <li>عرض معلومات اليوم والتنبيهات بشكل واضح ومستمر</li>
+              <li>واجهة كبيرة مناسبة للشاشات في الممرات وبهو المدرسة</li>
+              <li>واجهة عربية RTL مع هوية المدرسة (اسم/شعار)</li>
               <li>تحديث تلقائي حسب إعدادات المدرسة</li>
-              <li>دعم متعدد الشاشات</li>
+              <li>دعم لعدة شاشات داخل المدرسة الواحدة</li>
             </ul>
 
             <div class="cardCtas">
@@ -323,7 +357,7 @@
           <div>
             <div class="eyebrow">شاهد الأنظمة</div>
             <h2>فيديوهات توضيحية للأنظمة</h2>
-            <p class="muted">شاهد كيف تعمل الأنظمة فعليًا وكيف ستساعد مدرستك.</p>
+            <p class="muted">شاهد تجربة حقيقية للنظامين وكيف ستظهر في بيئة مدرستك.</p>
           </div>
         </div>
 
@@ -334,7 +368,7 @@
               <div class="video-icon">📑</div>
               <div class="video-info">
                 <h3 class="video-title">منصة التقارير والتذاكر</h3>
-                <p class="video-subtitle muted">شرح شامل لنظام التقارير والتذاكر وكيفية استخدامه</p>
+                <p class="video-subtitle muted">شرح عملي للنظام مع مثال على التقارير والتذاكر وروابط المشاركة.</p>
               </div>
             </div>
 
@@ -363,7 +397,7 @@
               <div class="video-icon">🖥️</div>
               <div class="video-info">
                 <h3 class="video-title">شاشة العرض الذكية</h3>
-                <p class="video-subtitle muted">اكتشف كيف تعمل شاشة العرض الذكية داخل المدرسة</p>
+                <p class="video-subtitle muted">استعراض واجهة شاشة العرض الذكية على TV داخل المدرسة.</p>
               </div>
             </div>
 
@@ -396,7 +430,11 @@
           <div>
             <div class="eyebrow">تفاصيل النظام</div>
             <h2>منصة التقارير والتذاكر — كيف تعمل داخل المدرسة؟</h2>
-            <p class="muted">بديل عملي للملفات المتناثرة والواتساب: توثيق + متابعة + أرشفة داخل نظام واحد.</p>
+            <p class="muted">
+              بديل عملي للملفات المتناثرة والواتساب:
+              توثيق + متابعة + أرشفة داخل نظام واحد،
+              مع إمكانية مشاركة التقارير وملفات الإنجاز بروابط مؤقتة وآمنة.
+            </p>
           </div>
           <div class="sectionActions">
             <a class="btn ghost" href="#pricing-reports">أسعار النظام</a>
@@ -407,15 +445,18 @@
         <div class="kpiRow">
           <div class="glass mini">
             <div class="miniTitle">هدف النظام</div>
-            <p class="muted">توحيد التقارير والطلبات بسجل واحد واضح قابل للبحث والطباعة.</p>
+            <p class="muted">توحيد التقارير والطلبات بسجل واحد واضح قابل للبحث والطباعة والمشاركة المؤقتة.</p>
           </div>
           <div class="glass mini">
             <div class="miniTitle">المرفقات</div>
-            <p class="muted">صور فقط لتبسيط الاستخدام وتسريع الرفع داخل المدرسة.</p>
+            <p class="muted">صور فقط لتبسيط الاستخدام وتسريع الرفع داخل المدرسة، بدون تعقيد ملفات كبيرة.</p>
           </div>
           <div class="glass mini">
             <div class="miniTitle">المخرجات</div>
-            <p class="muted">PDF للطباعة + أرشفة مرتبة + متابعة دقيقة لكل تذكرة.</p>
+            <p class="muted">
+              PDF للطباعة + أرشفة مرتبة + سجل تذاكر واضح +
+              روابط مشاركة مؤقتة للتقارير وملفات الإنجاز تنتهي تلقائيًا بعد عدد أيام محدد.
+            </p>
           </div>
         </div>
 
@@ -425,17 +466,23 @@
           <div class="glass step animate-on-scroll">
             <div class="stepNo">1</div>
             <div class="stepTitle">تهيئة المدرسة</div>
-            <p class="muted">إضافة الأقسام، تحديد الأدوار والصلاحيات، إنشاء حسابات المستخدمين.</p>
+            <p class="muted">إضافة الأقسام، تحديد الأدوار والصلاحيات، وإنشاء حسابات المستخدمين.</p>
           </div>
           <div class="glass step animate-on-scroll">
             <div class="stepNo">2</div>
             <div class="stepTitle">التوثيق والمتابعة</div>
-            <p class="muted">المعلم يرفع تقريره بالصور، والطلبات تُفتح كتذاكر بحالة ومسؤول وملاحظات.</p>
+            <p class="muted">
+              المعلم يرفع تقريره بالصور، والطلبات تُفتح كتذاكر بحالة ومسؤول وملاحظات،
+              مع إمكانية تجهيز ملف إنجاز إلكتروني مرتب.
+            </p>
           </div>
           <div class="glass step animate-on-scroll">
             <div class="stepNo">3</div>
-            <div class="stepTitle">الأرشفة والطباعة</div>
-            <p class="muted">إغلاق التذاكر بعد التنفيذ، وطباعة تقارير محددة أو كاملة بصيغة PDF.</p>
+            <div class="stepTitle">الأرشفة والمشاركة</div>
+            <p class="muted">
+              إغلاق التذاكر بعد التنفيذ، وطباعة تقارير محددة أو كاملة بصيغة PDF،
+              ومشاركة التقارير وملفات الإنجاز عبر روابط مؤقتة تنتهي تلقائيًا بعد عدد أيام تختارها الإدارة.
+            </p>
           </div>
         </div>
 
@@ -473,6 +520,11 @@
                 <td><b>المساءلة</b></td>
                 <td>صعب معرفة “من المسؤول” و“ماذا حدث”</td>
                 <td>مسؤول محدد + تاريخ + ملاحظات + حالة واضحة</td>
+              </tr>
+              <tr>
+                <td><b>المشاركة الخارجية</b></td>
+                <td>إرسال ملفات عبر الواتساب/البريد بدون تحكم بالمدة</td>
+                <td>روابط مشاركة مؤقتة للتقارير وملفات الإنجاز تنتهي تلقائيًا بعد عدد أيام محددة</td>
               </tr>
               <tr>
                 <td><b>الطباعة</b></td>
@@ -612,7 +664,7 @@
           <div>
             <div class="eyebrow">لقطات</div>
             <h2>معرض صور النظام</h2>
-            <p class="muted">استعرض واجهات النظامين: شاشة العرض الذكية، ومنصة التقارير.</p>
+            <p class="muted">استعرض واجهات النظامين: شاشة العرض الذكية، ومنصة التقارير والتذاكر.</p>
           </div>
         </div>
 
@@ -646,7 +698,7 @@
           <!-- Reports Gallery -->
           <article class="screenCard glass">
             <div class="screenTitle">منصة التقارير والتذاكر</div>
-            <p class="muted">لوحة تحكم شاملة للإدارة، المعلمين، والمشرفين.</p>
+            <p class="muted">لوحة تحكم شاملة للإدارة، المعلمين، والمشرفين، مع إمكانية مشاركة التقارير وملفات الإنجاز.</p>
 
             <div class="gallery" data-gallery>
               <div class="galleryHead">
@@ -681,7 +733,10 @@
           <div>
             <div class="eyebrow">الأسعار</div>
             <h2>أسعار واضحة — كل نظام منفصل</h2>
-            <p class="muted">يمكنك الاشتراك نصف سنوي أو سنوي، ومع شاشة العرض يمكن إضافة شاشات إضافية شهريًا.</p>
+            <p class="muted">
+              يمكنك الاشتراك نصف سنوي أو سنوي، ومع شاشة العرض يمكن إضافة شاشات إضافية شهريًا.
+              منصة التقارير والتذاكر تشمل: التقارير + التذاكر + الصلاحيات + الطباعة PDF + روابط مشاركة مؤقتة.
+            </p>
           </div>
           <div class="sectionActions">
             <a class="btn primary" href="#contact">اطلب عرض سعر ←</a>
@@ -700,7 +755,10 @@
             <div>
               <div class="eyebrow">📑 منصة التذاكر والتقارير</div>
               <h3 style="margin:6px 0 0">باقات الاشتراك</h3>
-              <p class="muted">تشمل التقارير + التذاكر + الصلاحيات + الطباعة PDF. (المرفقات: صور فقط)</p>
+              <p class="muted">
+                تشمل التقارير + التذاكر + الصلاحيات + الطباعة PDF،
+                مع ميزة مشاركة التقارير وملفات الإنجاز عبر روابط مؤقتة تنتهي تلقائيًا بعد عدد أيام تختارها الإدارة.
+              </p>
             </div>
             <div class="sectionActions">
               <a class="btn ghost" href="https://school-reports.onrender.com/" target="_blank" rel="noopener noreferrer">زيارة النظام</a>
@@ -731,6 +789,7 @@
                   <li>تقارير منظمة بالصور</li>
                   <li>تذاكر بحالات وإسناد</li>
                   <li>صلاحيات حسب الدور + تصدير/طباعة PDF</li>
+                  <li>روابط مشاركة مؤقتة للتقارير وملفات الإنجاز</li>
                 </ul>
                 <div class="cardCtas">
                   <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
@@ -755,6 +814,7 @@
                   <li>كل مزايا Starter</li>
                   <li>تنظيم أعلى + متابعة أدق</li>
                   <li>دعم محسّن</li>
+                  <li>روابط مشاركة مؤقتة للتقارير وملفات الإنجاز</li>
                 </ul>
                 <div class="cardCtas">
                   <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
@@ -779,6 +839,7 @@
                   <li>كل مزايا Standard</li>
                   <li>سعة أكبر للمستخدمين</li>
                   <li>دعم فني أوسع</li>
+                  <li>روابط مشاركة مؤقتة للتقارير وملفات الإنجاز</li>
                 </ul>
                 <div class="cardCtas">
                   <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
@@ -803,6 +864,7 @@
                   <li>كل مزايا Plus</li>
                   <li>أعلى سعة للمستخدمين</li>
                   <li>أولوية دعم</li>
+                  <li>روابط مشاركة مؤقتة للتقارير وملفات الإنجاز</li>
                 </ul>
                 <div class="cardCtas">
                   <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
@@ -831,6 +893,7 @@
                   <li>تقارير منظمة بالصور</li>
                   <li>تذاكر بحالات وإسناد</li>
                   <li>صلاحيات حسب الدور + تصدير/طباعة PDF</li>
+                  <li>روابط مشاركة مؤقتة للتقارير وملفات الإنجاز</li>
                 </ul>
                 <div class="cardCtas">
                   <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
@@ -855,6 +918,7 @@
                   <li>كل مزايا Starter</li>
                   <li>تنظيم أعلى + متابعة أدق</li>
                   <li>دعم محسّن</li>
+                  <li>روابط مشاركة مؤقتة للتقارير وملفات الإنجاز</li>
                 </ul>
                 <div class="cardCtas">
                   <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
@@ -879,6 +943,7 @@
                   <li>كل مزايا Standard</li>
                   <li>سعة أكبر للمستخدمين</li>
                   <li>دعم فني أوسع</li>
+                  <li>روابط مشاركة مؤقتة للتقارير وملفات الإنجاز</li>
                 </ul>
                 <div class="cardCtas">
                   <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
@@ -903,6 +968,7 @@
                   <li>كل مزايا Plus</li>
                   <li>أعلى سعة للمستخدمين</li>
                   <li>أولوية دعم</li>
+                  <li>روابط مشاركة مؤقتة للتقارير وملفات الإنجاز</li>
                 </ul>
                 <div class="cardCtas">
                   <a class="btn primary" href="#contact">اطلب اشتراك ←</a>
@@ -1142,7 +1208,7 @@
           <div>
             <div class="eyebrow">الأسئلة</div>
             <h2>أسئلة شائعة</h2>
-            <p class="muted">مختصر ومباشر.</p>
+            <p class="muted">إجابات سريعة على أبرز الأسئلة.</p>
           </div>
         </div>
 
@@ -1153,18 +1219,24 @@
           </details>
 
           <details class="glass faq animate-on-scroll">
+            <summary>هل يمكن مشاركة التقارير وملفات الإنجاز خارج النظام؟</summary>
+            <p class="muted">
+              نعم، يمكن مشاركة التقارير وملفات الإنجاز عبر روابط آمنة مؤقتة تنتهي تلقائيًا بعد عدد أيام تحدده إدارة المدرسة،
+              مما يضمن الخصوصية وعدم بقاء الروابط مفتوحة بشكل دائم.
+            </p>
+          </details>
+
+          <details class="glass faq animate-on-scroll">
             <summary>هل شاشة العرض تعمل على TV/4K؟</summary>
-            <p class="muted">نعم، الواجهة مصممة لتكون كبيرة وواضحة ومناسبة للشاشات الكبيرة.</p>
+            <p class="muted">نعم، الواجهة مصممة لتكون كبيرة وواضحة ومناسبة للشاشات الكبيرة في الممرات وبهو المدرسة.</p>
           </details>
 
           <details class="glass faq animate-on-scroll">
             <summary>هل يمكن الاشتراك في نظام واحد فقط؟</summary>
-            <p class="muted">نعم، كل نظام مستقل ويمكن الاشتراك فيه منفردًا. ويمكن أيضًا طلب عرض خاص للاشتراك في النظامين معًا.</p>
-          </details>
-
-          <details class="glass faq animate-on-scroll">
-            <summary>كيف يتم طلب التسعير أو التجربة؟</summary>
-            <p class="muted">املأ نموذج التواصل وحدد النظام المطلوب (وعدد الشاشات إن وجد) وسنرسل عرضًا مناسبًا.</p>
+            <p class="muted">
+              نعم، كل نظام مستقل ويمكن الاشتراك فيه منفردًا.
+              ويمكن أيضًا طلب عرض خاص للاشتراك في النظامين معًا مع خصم إضافي.
+            </p>
           </details>
 
           <details class="glass faq animate-on-scroll">
@@ -1174,7 +1246,7 @@
 
           <details class="glass faq animate-on-scroll">
             <summary>هل النظام يدعم اللغة العربية فقط؟</summary>
-            <p class="muted">نعم، النظام مصمم خصيصًا للمدارس العربية ويدعم العربية (RTL).</p>
+            <p class="muted">نعم، النظام مصمم خصيصًا للمدارس العربية ويدعم العربية (RTL) بواجهة كاملة.</p>
           </details>
         </div>
       </div>
@@ -1186,7 +1258,10 @@
         <div class="glass leadCard">
           <div class="eyebrow">تواصل</div>
           <h2 style="margin:6px 0 0">اطلب تجربة 14 يوم مجانية / عرض سعر</h2>
-          <p class="muted">املأ البيانات لطلب تجربة مجانية لمدة 14 يوم أو تجهيز عرض سعر مناسب لمدرستك.</p>
+          <p class="muted">
+            املأ البيانات لطلب تجربة مجانية لمدة 14 يوم أو تجهيز عرض سعر مناسب لمدرستك،
+            مع توضيح إن كنت تحتاج منصة التقارير والتذاكر، شاشة العرض الذكية، أو الاثنين معًا.
+          </p>
 
           <form id="leadForm" class="form" novalidate>
             <div class="row2">
@@ -1225,14 +1300,19 @@
 
               <div class="field">
                 <label for="screens">عدد الشاشات / المعلمين (اختياري)</label>
-                <input id="screens" name="screens" inputmode="numeric" maxlength="10" placeholder="مثال: 2" />
+                <input id="screens" name="screens" inputmode="numeric" maxlength="10" placeholder="مثال: 2 شاشات أو 50 معلم" />
                 <div class="hint muted">اتركه فارغًا إذا لا توجد شاشات أو عدد معلمين محدد.</div>
               </div>
             </div>
 
             <div class="field">
               <label for="notes">ملاحظات (اختياري)</label>
-              <textarea id="notes" name="notes" rows="3" maxlength="500" placeholder="أي تفاصيل إضافية…"></textarea>
+              <textarea
+                id="notes"
+                name="notes"
+                rows="3"
+                maxlength="500"
+                placeholder="مثال: نرغب بتفعيل مشاركة ملفات الإنجاز مع المشرف الخارجي لمدة 7 أيام فقط…"></textarea>
             </div>
 
             <div class="formActions">
@@ -1258,7 +1338,8 @@
           </div>
 
           <div class="sideHint muted">
-            نصيحة: حدّد النظام المطلوب وعدد الشاشات (إن وجدت) لنقترح عليك الباقة الأنسب مباشرة.
+            نصيحة: حدّد النظام المطلوب، وعدد المعلمين أو الشاشات، وفكرة استخدام روابط مشاركة التقارير أو ملفات الإنجاز،
+            لنقترح عليك الباقة الأنسب مباشرة.
           </div>
 
           <div class="divider"></div>
@@ -1301,6 +1382,6 @@
     <div class="toast" data-toast hidden></div>
   </main>
 
-  <script src="./assets/js/app.js?v=20251230_1" defer></script>
+  <script src="./assets/js/app.js?v=20251230_2" defer></script>
 </body>
 </html>
