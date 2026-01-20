@@ -297,9 +297,20 @@
       function goToSlide(index) {
         currentSlide = Math.max(0, Math.min(index, slides.length - 1));
         
-        // Update viewport scroll
+        // Update viewport scroll with Centering logic
+        const slide = slides[currentSlide];
+        // Calculate position to center the slide
+        // offsetLeft is relative to the offsetParent (likely .gallery wrapper), 
+        // so we might need adjustment if viewport has margin, but usually fine.
+        // Better robustness:
+        const slideLeft = slide.offsetLeft; 
+        const viewportWidth = viewport.clientWidth;
+        const slideWidth = slide.offsetWidth;
+        
+        const targetScrollLeft = slideLeft - (viewportWidth - slideWidth) / 2;
+
         viewport.scrollTo({
-          left: slides[currentSlide].offsetLeft,
+          left: Math.max(0, targetScrollLeft),
           behavior: 'smooth'
         });
         

@@ -484,19 +484,28 @@ h2 {
 
 .galleryViewport {
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  /* Removed scroll-snap to fix conflict with JS */
   display: flex;
-  gap: 20px;
-  padding-bottom: 20px; /* Space for shadow */
-  scrollbar-width: none; /* Firefox */
+  /* gap on viewport does nothing for single track child, removed */
+  padding-bottom: 20px;
+  scrollbar-width: none;
 }
 .galleryViewport::-webkit-scrollbar { display: none; }
 
-.galleryTrack { display: flex; gap: 20px; }
+.galleryTrack { 
+  display: flex; 
+  gap: 20px; 
+  /* Ensure track doesn't collapse */
+  width: max-content;
+  min-width: 100%;
+}
 .galleryTrack img {
-  scroll-snap-align: center;
+  /* Removed scroll-snap-align */
+  flex-shrink: 0; /* Prevent images from shrinking/overlapping */
   height: auto;
   max-height: 500px; 
+  /* Limit width on mobile to prevent overflow issues */
+  max-width: 85vw;
   border-radius: 16px;
   box-shadow: 0 15px 30px rgba(0,0,0,0.1);
   transition: transform 0.3s;
