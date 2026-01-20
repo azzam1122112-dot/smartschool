@@ -275,13 +275,27 @@
       const nextBtn = $('[data-next]', gallery);
       
       if (!viewport || !track || !dotsWrap) return;
-      
+
+      // Normalize markup: ensure each image is wrapped in .gSlide
+      const initialImages = $$('img', track);
+      if (!initialImages.length) return;
+      const hasSlideWrappers = track.querySelector('.gSlide');
+      if (!hasSlideWrappers) {
+        initialImages.forEach((img) => {
+          const wrap = document.createElement('div');
+          wrap.className = 'gSlide';
+          img.parentNode.insertBefore(wrap, img);
+          wrap.appendChild(img);
+        });
+      }
+
+      const slideEls = $$('.gSlide', track);
       const slides = $$('img', track);
-      if (!slides.length) return;
+      if (!slideEls.length) return;
       
       // Create dots
       dotsWrap.innerHTML = '';
-      const dots = slides.map((_, index) => {
+      const dots = slideEls.map((_, index) => {
         const dot = document.createElement('button');
         dot.type = 'button';
         dot.className = 'dot' + (index === 0 ? ' active' : '');
@@ -293,26 +307,22 @@
       
       let currentSlide = 0;
       let autoPlayInterval;
+      let isVisible = true;
+      const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function clampIndex(index) {
+        const max = slideEls.length - 1;
+        return Math.max(0, Math.min(index, max));
+      }
+
+      function updateTransform() {
+        // We force carousel direction to LTR for predictable translateX
+        track.style.transform = `translate3d(${-currentSlide * 100}%, 0, 0)`;
+      }
       
       function goToSlide(index) {
-        currentSlide = Math.max(0, Math.min(index, slides.length - 1));
-        
-        // Update viewport scroll with Centering logic
-        const slide = slides[currentSlide];
-        // Calculate position to center the slide
-        // offsetLeft is relative to the offsetParent (likely .gallery wrapper), 
-        // so we might need adjustment if viewport has margin, but usually fine.
-        // Better robustness:
-        const slideLeft = slide.offsetLeft; 
-        const viewportWidth = viewport.clientWidth;
-        const slideWidth = slide.offsetWidth;
-        
-        const targetScrollLeft = slideLeft - (viewportWidth - slideWidth) / 2;
-
-        viewport.scrollTo({
-          left: Math.max(0, targetScrollLeft),
-          behavior: 'smooth'
-        });
+        currentSlide = clampIndex(index);
+        updateTransform();
         
         // Update dots
         dots.forEach((dot, i) => {
@@ -321,14 +331,19 @@
         
         // Update data attribute for keyboard navigation
         viewport.dataset.currentSlide = currentSlide;
+
+        // Accessibility: hide non-active slides from screen readers
+        slideEls.forEach((el, i) => {
+          el.setAttribute('aria-hidden', i === currentSlide ? 'false' : 'true');
+        });
       }
       
       function nextSlide() {
-        goToSlide(currentSlide + 1 >= slides.length ? 0 : currentSlide + 1);
+        goToSlide(currentSlide + 1 >= slideEls.length ? 0 : currentSlide + 1);
       }
       
       function prevSlide() {
-        goToSlide(currentSlide - 1 < 0 ? slides.length - 1 : currentSlide - 1);
+        goToSlide(currentSlide - 1 < 0 ? slideEls.length - 1 : currentSlide - 1);
       }
       
       // Button handlers
@@ -356,37 +371,48 @@
         }
       });
       
-      // Touch/swipe support
-      let touchStartX = 0;
-      let touchEndX = 0;
-      
-      gallery.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-        stopAutoPlay();
-      }, { passive: true });
-      
-      gallery.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-      }, { passive: true });
-      
-      function handleSwipe() {
-        const threshold = 50;
-        const swipeDistance = touchEndX - touchStartX;
-        
-        if (Math.abs(swipeDistance) > threshold) {
-          if (swipeDistance > 0) {
-            prevSlide();
-          } else {
-            nextSlide();
-          }
-        }
+      // Touch/swipe support (pointer events)
+      let pointerStartX = 0;
+      let pointerEndX = 0;
+      let isPointerDown = false;
+
+      function handleSwipeDelta(deltaX) {
+        const threshold = 40;
+        if (Math.abs(deltaX) < threshold) return;
+        // Swipe left => next, swipe right => prev
+        if (deltaX < 0) nextSlide();
+        else prevSlide();
       }
+
+      gallery.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        isPointerDown = true;
+        pointerStartX = e.clientX;
+        pointerEndX = e.clientX;
+        stopAutoPlay();
+      });
+
+      gallery.addEventListener('pointermove', (e) => {
+        if (!isPointerDown) return;
+        pointerEndX = e.clientX;
+      });
+
+      gallery.addEventListener('pointerup', () => {
+        if (!isPointerDown) return;
+        isPointerDown = false;
+        handleSwipeDelta(pointerEndX - pointerStartX);
+      });
+
+      gallery.addEventListener('pointercancel', () => {
+        isPointerDown = false;
+      });
       
       // Auto-play functionality
       function startAutoPlay() {
         stopAutoPlay();
-        autoPlayInterval = setInterval(nextSlide, 4000);
+        if (prefersReducedMotion) return;
+        if (!isVisible) return;
+        autoPlayInterval = setInterval(nextSlide, 5000);
       }
       
       function stopAutoPlay() {
@@ -406,37 +432,27 @@
       // Pause on focus
       gallery.addEventListener('focusin', stopAutoPlay);
       gallery.addEventListener('focusout', startAutoPlay);
-      
-      // Update on scroll
-      let scrollTimeout;
-      viewport.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          const center = viewport.scrollLeft + viewport.clientWidth / 2;
-          let closestIndex = 0;
-          let closestDistance = Infinity;
-          
-          slides.forEach((slide, index) => {
-            const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
-            const distance = Math.abs(slideCenter - center);
-            
-            if (distance < closestDistance) {
-              closestDistance = distance;
-              closestIndex = index;
-            }
+
+      // Visibility-aware autoplay (stops when section is off-screen)
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            isVisible = entry.isIntersecting;
+            if (isVisible) startAutoPlay();
+            else stopAutoPlay();
           });
-          
-          if (closestIndex !== currentSlide) {
-            currentSlide = closestIndex;
-            dots.forEach((dot, i) => {
-              dot.classList.toggle('active', i === currentSlide);
-            });
-          }
-        }, 150);
+        }, { threshold: 0.15 });
+        io.observe(gallery);
+      }
+
+      window.addEventListener('resize', () => {
+        // Re-apply transform to avoid subpixel issues after resize
+        updateTransform();
       }, { passive: true });
       
       // Initialize
       viewport.dataset.currentSlide = '0';
+      goToSlide(0);
     }
   }
 
