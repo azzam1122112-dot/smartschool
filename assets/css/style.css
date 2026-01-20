@@ -117,7 +117,9 @@ h2 {
   font-weight: 800;
   line-height: 1.1;
   background: linear-gradient(180deg, var(--ink), var(--ink-light));
+  background-clip: text;
   -webkit-background-clip: text;
+  color: var(--ink);
   -webkit-text-fill-color: transparent;
   margin-bottom: 0;
 }
